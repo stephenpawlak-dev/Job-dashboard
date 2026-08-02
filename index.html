@@ -377,27 +377,27 @@ const deals = [
     company:"Meter", role:"Sales Engineering, Midwest",
     techTag:"Cloud Networking (NaaS)",
     jobUrl:"https://www.meter.com/open-roles?dept=sales&role=sales-engineering-midwest",
-    stageIndex:0, stageDate:"Week of Aug 3", nextAction:"Formal action (if informational supports it)", nextDate:"Week of Aug 10",
-    isOutlier:true, outlierNote:"Informational counted at Hiring-Manager-Discussion level, since multiple ex-Meraki contacts plus expressed company interest amount to that already.",
-    jobMatch:{mix:3, stakeholder:3, ambiguity:3, influence:4, tech:4},
-    career:{intrapreneurial:4, growth:5, croCto:2, breadth:2, bdMetrics:2},
+    stageIndex:4, stageDate:"HM outreach received Aug 2", nextAction:"Schedule follow up call with SE hiring manager", nextDate:"Week of Aug 3",
+    isOutlier:false,
+    jobMatch:{mix:4, stakeholder:4, ambiguity:3, influence:4, tech:4},
+    career:{intrapreneurial:4, growth:5, croCto:4, breadth:4, bdMetrics:2},
     accept:{
-      culture:{wlb:4, travel:2, location:5, hmRelationship:4, overallCulture:3},
-      compTier:1
+      culture:{wlb:4, travel:3, location:5, hmRelationship:5, overallCulture:3},
+      compTier:3
     },
-    stageBoost:-10, boostReason:"minus 10: the Partner-track rejection is a live signal about fit worth weighing here too",
-    compCash:"$190K", compCashNote:"Cash: OTE midpoint $165K split 70/30 base/variable, variable at an assumed 150% attainment with accelerators", compEquity:"~$37.5K/yr", compEquityNote:"Equity: illustrative only, about 0.015% grant as employee #200 in a Series C company near $1B valuation, vested over 4 years. Illiquid, could be worth far less or more at any actual exit", compTotal:"~$228K", compStatus:"not-meeting", compConfidence:"Estimated",
-    locationMode:"Remote, field-based, assumed", travelNote:"Est. 30% or more, field/travel-heavy role per related postings",
+    stageBoost:5, boostReason:"plus 5: the SE hiring manager proactively reached out, a stronger unprompted signal than earlier expressed interest, tempered since travel and exact comp structure are still unconfirmed",
+    compCash:"$190K", compCashNote:"Cash: OTE midpoint $165K split 70/30 base/variable, variable at an assumed 150% attainment with accelerators. Hiring manager indicated in outreach that total comp meets Stephen's range, exact structure not yet itemized", compEquity:"~$37.5K/yr", compEquityNote:"Equity: illustrative only, about 0.015% grant as employee #200 in a Series C company near $1B valuation, vested over 4 years. Illiquid, could be worth far less or more at any actual exit", compTotal:"Est. $300K+, per HM's verbal range indication", compStatus:"meeting", compConfidence:"Estimated, verbal from HM outreach, not itemized",
+    locationMode:"Remote, field-based, assumed", travelNote:"Unknown. Earlier estimate assumed a field-heavy role, but scope for this specific opening has not been confirmed by the hiring manager yet",
     meddpicc:{
-      eb:"Not yet identified",
-      champion:"Multiple ex-Meraki friends on the SE/sales side, general interest expressed by the company",
+      eb:"Likely the SE hiring manager himself, formal decision authority not yet confirmed",
+      champion:"Multiple ex-Meraki friends on the SE/sales side, plus the SE hiring manager, who reached out directly expressing interest in Stephen for the role",
       pain:"Meter's enterprise SE bench needs Midwest coverage",
       criteria:"Technical credibility plus enterprise customer-facing polish",
-      process:"Informational week of Aug 3, formal action week of Aug 10 if it is a real fit",
+      process:"Hiring manager reached out directly Aug 2. A real conversation is underway, next formal step still to be scheduled",
       competing:"Lower priority this week than the Aug 2 and Aug 5 deadlines",
-      note:"Weakest Career Trajectory score of the 5. Technical IC role, not a direct step toward CRO/CTO."
+      note:"Hiring manager describes the role as staying close to product management, customers, and partners, with room to expand into technical and sales, and a possible path toward a future CTO or CRO track role within Meter. Career Trajectory score raised accordingly, though this is still an early conversation."
     },
-    redirectNote:"Partner Technical Enablement role ruled out. Direct feedback from the Partner Leader was not a fit. Interest redirected to the Sales Engineering track above."
+    redirectNote:"Partner Technical Enablement role ruled out. Direct feedback from the Partner Leader was not a fit. Interest redirected to the Sales Engineering track above, where the hiring manager has since reached out directly."
   },
 ];
 
@@ -556,15 +556,18 @@ const pillarChart = new Chart(document.getElementById('pillarChart'), {
   data:{
     labels: labels5,
     datasets:[
-      {type:'bar', label:'Job Match Fit (40%)', data:deals.map(d=>d.jobMatchScore), backgroundColor:'#1c3350'},
-      {type:'bar', label:'Career Trajectory (35%)', data:deals.map(d=>d.careerScore), backgroundColor:'#3f6b8f'},
-      {type:'bar', label:'Likelihood to Accept (25%)', data:deals.map(d=>d.acceptScore), backgroundColor:'#c8912f'},
-      {type:'line', label:'Stage Confidence', data:deals.map(d=>d.stageConfidence), borderColor:'#a8492f', backgroundColor:'#a8492f', borderWidth:3, tension:0.3, pointRadius:5, pointBackgroundColor:'#a8492f', order:0}
+      {type:'bar', label:'Job Match Fit (40%)', data:deals.map(d=>d.jobMatchScore), backgroundColor:'#1c3350', order:2},
+      {type:'bar', label:'Career Trajectory (35%)', data:deals.map(d=>d.careerScore), backgroundColor:'#3f6b8f', order:2},
+      {type:'bar', label:'Likelihood to Accept (25%)', data:deals.map(d=>d.acceptScore), backgroundColor:'#c8912f', order:2},
+      {type:'line', label:'Stage Confidence', data:deals.map(d=>d.stageConfidence), borderColor:'#a8492f', backgroundColor:'#a8492f', borderWidth:3, tension:0.3, pointRadius:5, pointBackgroundColor:'#a8492f', order:1, yAxisID:'y1'}
     ]
   },
   options:{
     responsive:true, maintainAspectRatio:false,
-    scales:{ y:{ min:0, max:100 } },
+    scales:{
+      y:{ min:0, max:100, title:{display:true, text:'Pillar Score', font:{size:10}} },
+      y1:{ min:0, max:100, position:'right', title:{display:true, text:'Stage Confidence', font:{size:10}}, grid:{drawOnChartArea:false} }
+    },
     plugins:{ legend:{ position:'bottom', labels:{font:{size:9}} } },
     onClick:(evt, elements)=>{ if(elements.length){ openDeal(elements[0].index); } }
   }
