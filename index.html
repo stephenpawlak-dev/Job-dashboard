@@ -156,7 +156,7 @@
 <div class="wrap">
 
   <header>
-    <h1>📊 Sales Executive Board <span style="font-size:1rem; color:var(--sub); font-weight:400;">v2.3</span></h1>
+    <h1>📊 Sales Executive Board <span style="font-size:1rem; color:var(--sub); font-weight:400;">v2.4</span></h1>
     <p>Personal career-search pipeline using a 3-pillar model, stage-weighted close confidence, and clickable job links</p>
   </header>
   <div class="sprint">30-DAY SPRINT: AUG 1 TO AUG 31, 2026</div>
@@ -185,6 +185,10 @@
     <div class="synopsis-cta">🤝 <b>How you can help:</b> if you know someone in a leadership seat at a networking, security, or cloud infrastructure company (especially one that's recently made an AI-related acquisition), or in AI/GTM strategy at a big tech company, or building something interesting at a growing infra startup, I would love an introduction, warm or otherwise.</div>
   </div>
 
+  <div class="whatchanged">
+    <b>What changed this pass:</b> Close Confidence now weights stage even more heavily, 70% stage, 20% fit, 10% likelihood to accept, up from 60/25/15, since early stage deals with a big personal connection boost were still scoring too high on fit and accept alone. The comp tier scale was also corrected, Meeting now scores 80 instead of 60, so it sits proportionally between Not Meeting (20) and Exceeding (100). A new Final Interview stage (80%) was added between Second Stage and Offer. Stage boosts for personal connections now only apply when the contact is the actual hiring manager, not a general referrer or recommender, both Google roles dropped to 0% stage confidence as a result since neither has an identified hiring manager yet. The 30 day master metric still does not treat all 5 opportunities as independent bets, it is dominated by the strongest opportunity, with the other 4 contributing a discounted amount of backup confidence. Write ups on this page no longer use dashes.
+  </div>
+
   <div class="master-metric" id="masterMetric"></div>
   <div class="hero-tile" id="heroTile"></div>
   <div class="other-four" id="otherFour"></div>
@@ -207,7 +211,7 @@
       <p><code>Overall Fit = 0.40 × Job Match Fit + 0.35 × Career Trajectory + 0.25 × Likelihood to Accept</code></p>
 
       <h4>Close Confidence Score</h4>
-      <p><code>Close Confidence = 0.25 × Job Match Fit + 0.60 × Stage Confidence + 0.15 × Likelihood to Accept</code></p>
+      <p><code>Close Confidence = 0.20 × Job Match Fit + 0.70 × Stage Confidence + 0.10 × Likelihood to Accept</code></p>
       <p style="font-size:0.78rem; color:var(--sub);">Stage dominates deliberately. Fit only matters once you are actually through the early gates. A perfect-fit role sitting at Applied still will not score high here.</p>
 
       <table>
@@ -216,11 +220,12 @@
         <tr><td>Recruiter Screening</td><td>10%</td></tr>
         <tr><td>Hiring Manager Discussion</td><td>20%</td></tr>
         <tr><td>Second Stage</td><td>60%</td></tr>
+        <tr><td>Final Interview (where applicable)</td><td>80%</td></tr>
         <tr><td>Offer</td><td>100%</td></tr>
       </table>
       <p style="font-size:0.78rem; color:var(--sub);">This curve was tightened after review. Every stage before Second Stage now earns less baseline confidence than it did in the prior version, since none of the 5 current opportunities are actually far along yet, and the old numbers were producing false confidence. Personal-connection boosts (a recommendation, a champion, someone on the team) still apply on top, independent of formal stage.</p>
 
-      <div class="outlier-caveat">🔎 <b>Outlier: HPE and Meter.</b> Both are formally at Informational, but you have already had hiring-manager-level engagement (Killion pitching you directly at HPE, multiple ex-Meraki contacts plus general company interest at Meter). Their stage-confidence baseline is manually set to the Hiring Manager Discussion level (20) rather than the formal-stage default (0), then boosted or discounted the same way every other deal is. Flagged here so it does not read as an unexplained exception.</div>
+      <div class="outlier-caveat">🔎 <b>No active outliers.</b> The outlier override exists for real hiring manager level engagement ahead of a deal's formal stage. HPE and Meter both used to carry that flag, but both have since progressed far enough in the real process (HPE into a formal Second Stage interview loop, Meter through direct hiring manager outreach) that their formal stage now reflects reality on its own, no manual override needed.</div>
 
       <h4>Master metric: confidence of landing something in 30 days</h4>
       <p>This is the number at the top of the page, and it changed shape after review. The first version combined all 5 opportunities as if they were fully independent bets. That math is real, but it produces a high number even when every individual deal is weak, purely because there are 5 of them running at once. It felt wrong because it was overstating things: these processes are not fully independent in reality, since market conditions and your overall positioning affect all of them somewhat together.</p>
@@ -241,7 +246,7 @@
     </div>
     <div class="chart-card">
       <h3>Close Confidence vs. Overall Fit</h3>
-      <p class="desc">Bubble size = comp tier. Click a bubble, or a link below, to open that job posting.</p>
+      <p class="desc">Bubble size shows comp tier: small is Not Meeting, medium is Meeting, large is Exceeding. Click a bubble, or a link below, to open that job posting.</p>
       <div class="chart-wrap"><canvas id="quadrantChart"></canvas></div>
       <div class="chart-links" id="quadrantLinks"></div>
     </div>
@@ -252,20 +257,20 @@
 
   <h2 class="section-title" style="margin-top:36px;">Broader Pipeline</h2>
   <details class="broader">
-    <summary>15 additional opportunities tracked, not yet re-scored under this methodology</summary>
+    <summary>14 additional opportunities tracked, not yet re-scored under this methodology</summary>
     <table class="broad-table" id="broaderTable"></table>
   </details>
 
-  <footer>Personal career-search dashboard v2.3, updated Aug 1, 2026</footer>
+  <footer>Personal career-search dashboard v2.4, updated Aug 3, 2026</footer>
 </div>
 
 <script>
-const stageLabels = ["Informational","Applying","Applied","Recruiter Screening","Hiring Manager Discussion","Second Stage","Offer"];
-const stageBaseline = [0, 0, 0, 10, 20, 60, 100];
+const stageLabels = ["Informational","Applying","Applied","Recruiter Screening","Hiring Manager Discussion","Second Stage","Final Interview","Offer"];
+const stageBaseline = [0, 0, 0, 10, 20, 60, 80, 100];
 const OUTLIER_LEVEL = 20; // matches the Hiring Manager Discussion baseline
 const pillarWeights = {jobMatch:0.40, career:0.35, accept:0.25};
-const closeWeights = {jobMatch:0.25, stage:0.60, accept:0.15};
-const masterWeights = {stage:0.80, accept:0.20}; // same relative ratio as stage:accept in Close Confidence (60:15), fit excluded entirely
+const closeWeights = {jobMatch:0.20, stage:0.70, accept:0.10};
+const masterWeights = {stage:0.80, accept:0.20}; // set independently of Close Confidence's ratio, fit excluded entirely, stage dominant on purpose for the 30 day question specifically
 const backupCredit = 0.5; // the other 4 opportunities are not truly independent bets, so only half credit applies
 
 const deals = [
@@ -273,32 +278,32 @@ const deals = [
     company:"HPE", role:"Sales Specialist, Network for AI, Large Enterprise",
     techTag:"AI Networking",
     jobUrl:"https://careers.hpe.com/us/en/job/1200823/Sales-Specialist-Network-for-AI-Large-Enterprise-Accounts",
-    stageIndex:0, stageDate:"Week of Aug 3", nextAction:"Formal application push", nextDate:"Week of Aug 10",
-    isOutlier:true, outlierNote:"Informational counted at Hiring-Manager-Discussion level, since Killion is already engaging directly.",
-    jobMatch:{mix:5, stakeholder:4, ambiguity:4, influence:5, tech:4},
-    career:{intrapreneurial:4, growth:5, croCto:5, breadth:3, bdMetrics:5},
+    stageIndex:5, stageDate:"Second round loop opened Aug 3, after a full hiring manager call with Jay Killion", nextAction:"Peer day in the life interview first, then formal rounds with Jay, SE Manager Tracy Holmquist and SE Josh, then a final round with Tom Wilburn", nextDate:"Scheduling now, no dates set yet",
+    isOutlier:false,
+    jobMatch:{mix:5, stakeholder:5, ambiguity:4, influence:5, tech:5},
+    career:{intrapreneurial:5, growth:5, croCto:5, breadth:4, bdMetrics:5},
     accept:{
-      culture:{wlb:5, travel:3, location:5, hmRelationship:5, overallCulture:5},
-      compTier:5
+      culture:{wlb:5, travel:4, location:5, hmRelationship:5, overallCulture:5},
+      compTier:4
     },
-    stageBoost:20, boostReason:"+20: 4 independent HPE advocates, including specific praise for the leader",
-    compCash:"$361.5K", compCashNote:"Cash: company-stated OTE midpoint (50/50 base/variable), confirmed, already clears $350K alone", compEquity:"~$40K/yr", compEquityNote:"Equity: assumed RSU sweetener for a 20-year veteran joining a strategic specialist seat (assumption, not sourced)", compTotal:"~$402K", compStatus:"exceeding", compConfidence:"Confirmed",
+    stageBoost:15, boostReason:"+15: hiring manager Jay Killion personally ran a full call covering territory, comp, and the exact interview loop, and already named the next three interviewers by name, a materially warmer entry than a typical Second Stage loop",
+    compCash:"$300K", compCashNote:"Cash: hiring manager Jay directly targeted $300K OTE, base plus commission, for Stephen specifically in the Aug 3 call. Tom Wilburn's own benchmark for candidates without a sales background is lower, around $275K OTE. Downgraded from the posted range midpoint now that a real conversation has set expectations", compEquity:"Not confirmed", compEquityNote:"Equity: RSUs are used as a retention tool for over achievers and a recruiting tool, per Jay, but are not guaranteed and need recruiter confirmation to be real. Treated as an unconfirmed upside, not counted in the total", compTotal:"~$300K, RSU upside unconfirmed", compStatus:"meeting", compConfidence:"Confirmed verbally by the hiring manager, but a target, not a guarantee",
     locationMode:"Remote, confirmed in posting", travelNote:"Est. 20 to 30% for an enterprise field specialist, not confirmed",
     meddpicc:{
-      eb:"Direct contatc with leadership chain. In contact with who effectively co-owns this decision",
-      champion:"4 separate HPE contacts vouching, with praise for leader specifically, I have a personal trusted realationship the Juniper Mist integration story, and a chance to influence the team more than pure sales",
-      pain:"Needs specialists who can sell HPE's AI Networking story into large enterprise accounts. It is built on the Juniper/Mist acquisition, but the seat is about AI Networking, not the M&A itself",
-      criteria:"Networking sales credibility plus fluency on AI infrastructure",
-      process:"Informational this week, formal application push week of Aug 10",
-      competing:"Low time cost this week: one call, does not compete with Amazon interview prep",
-      note:"No formal management required. Pure influence/specialist seat, plays directly to strength."
+      eb:"Jay Killion personally, with Tom Wilburn, Jay's boss, as the final approver on the panel",
+      champion:"4 separate HPE contacts vouching, plus a full hour long hiring manager call from Jay walking through territory, comp, and the interview loop in detail",
+      pain:"Needs a specialist who can carry HPE's AI networking story, built on the Juniper and Mist acquisition, into large enterprise accounts. The territory already hit its FY27 goal by the end of Q3 with all of Q4 as pure upside, and Mist is already 95 percent of net new cloud bookings, a genuine growth engine inside HPE's networking business, not just a title",
+      criteria:"Tom Wilburn's bar: technical enough to run demos and answer baseline SE questions without being an SE, real cloud networking experience, confident presenting to a CIO or 50 partners, and genuine drive rather than coasting on a strong account team",
+      process:"Moving into a formal second round loop: a peer interview for a real day to day view first, then a formal interview with Jay, then SE Manager Tracy Holmquist and SE Josh, then a final round with Tom Wilburn if all of that clears",
+      competing:"Now the most active process on the board given the loop just opened. Needs deliberate prep specifically for the Wilburn round, since that is the panel most likely to push back on a product manager moving into sales",
+      note:"No formal management required, a pure influence and specialist seat that plays directly to strength. Long term view: this sits inside HPE's fastest growing networking motion during a still early stage Aruba, Juniper, and Mist integration, which extends the runway for advancement inside this org over the next several years. Field product line managers in this org report into product, not sales, so there is a real internal path back toward product management if that pivot ever made sense again. This is not a dead end sales only track."
     }
   },
   {
     company:"Google", role:"Strategic Program Lead, Engineering Excellence, Cloud",
     techTag:"Cloud GTM Strategy",
     jobUrl:"https://www.google.com/about/careers/applications/jobs/results/97800892551439046-strategic-program-lead/",
-    stageIndex:1, stageDate:"Applying by Sun Aug 2", nextAction:"Submit application", nextDate:"Sun Aug 2",
+    stageIndex:1, stageDate:"Applying, self-imposed Sun Aug 2 deadline passed unmet", nextAction:"Submit application", nextDate:"Overdue since Sun Aug 2",
     isOutlier:false,
     jobMatch:{mix:5, stakeholder:5, ambiguity:5, influence:5, tech:4},
     career:{intrapreneurial:3, growth:3, croCto:4, breadth:4, bdMetrics:3},
@@ -306,7 +311,7 @@ const deals = [
       culture:{wlb:5, travel:4, location:4, hmRelationship:3, overallCulture:4},
       compTier:5
     },
-    stageBoost:15, boostReason:"+15: 3 active Google contacts (recommender plus 2 fraternity brothers) validating fit and culture",
+    stageBoost:0, boostReason:"0: recommender plus 2 fraternity brothers are culture and fit validators, not the hiring manager. No direct hiring manager conversation has happened yet, so no stage boost applies. Their strength shows up in the champion field instead, not here",
     compCash:"$274K", compCashNote:"Cash: midpoint of posted base $186K to $270K plus 20% bonus (sits in the meeting band on its own)", compEquity:"~$125K/yr", compEquityNote:"Equity: Google L6 Program Manager published median stock grant (levels.fyi), closest public analog", compTotal:"~$399K", compStatus:"exceeding", compConfidence:"Estimated",
     locationMode:"Hybrid, 3 days in office and 2 days remote (confirmed)", travelNote:"Est. ~10%, not confirmed",
     meddpicc:{
@@ -331,7 +336,7 @@ const deals = [
       culture:{wlb:5, travel:4, location:4, hmRelationship:3, overallCulture:4},
       compTier:5
     },
-    stageBoost:20, boostReason:"+20: old boss submitted an actual recommendation, not just a referral ask",
+    stageBoost:0, boostReason:"0: the old boss's submitted recommendation is a strong champion signal, but he is not the hiring manager for this role and no hiring manager conversation has happened yet. No stage boost applies until a real hiring manager is engaged",
     compCash:"$274K", compCashNote:"Cash: midpoint of posted base $186K to $270K plus 20% bonus (sits in the meeting band on its own)", compEquity:"~$125K/yr", compEquityNote:"Equity: Google L6 Program Manager published median stock grant (levels.fyi), closest public analog", compTotal:"~$399K", compStatus:"exceeding", compConfidence:"Estimated",
     locationMode:"Hybrid, 3 days in office and 2 days remote (confirmed)", travelNote:"Est. ~10%, not confirmed",
     meddpicc:{
@@ -354,7 +359,7 @@ const deals = [
     career:{intrapreneurial:5, growth:5, croCto:4, breadth:3, bdMetrics:5},
     accept:{
       culture:{wlb:3, travel:4, location:3, hmRelationship:3, overallCulture:3},
-      compTier:3
+      compTier:4
     },
     stageBoost:8, boostReason:"+8: one well-known personal contact vouches for culture, flags it as team/manager-dependent",
     compCash:"$191K", compCashNote:"Cash: midpoint of posted base $162.7K to $220.2K (salaried, no commission/OTE structure)", compEquity:"~$97K/yr", compEquityNote:"Equity: implied from the published Business Development Manager total-comp median ($288K) minus this posting's cash midpoint", compTotal:"~$288K", compStatus:"meeting", compConfidence:"Estimated",
@@ -379,7 +384,7 @@ const deals = [
     career:{intrapreneurial:4, growth:5, croCto:4, breadth:4, bdMetrics:2},
     accept:{
       culture:{wlb:4, travel:3, location:5, hmRelationship:5, overallCulture:3},
-      compTier:3
+      compTier:4
     },
     stageBoost:5, boostReason:"plus 5: the SE hiring manager proactively reached out, a stronger unprompted signal than earlier expressed interest, tempered since travel and exact comp structure are still unconfirmed",
     compCash:"$190K", compCashNote:"Cash: OTE midpoint $165K split 70/30 base/variable, variable at an assumed 150% attainment with accelerators. Hiring manager indicated in outreach that total comp meets Stephen's range, exact structure not yet itemized", compEquity:"~$37.5K/yr", compEquityNote:"Equity: illustrative only, about 0.015% grant as employee #200 in a Series C company near $1B valuation, vested over 4 years. Illiquid, could be worth far less or more at any actual exit", compTotal:"Est. $300K+, per HM's verbal range indication", compStatus:"meeting", compConfidence:"Estimated, verbal from HM outreach, not itemized",
@@ -543,6 +548,9 @@ deals.forEach(d=>{
 
 // ===================== CHARTS =====================
 const palette = ["#c8912f","#3f6b8f","#5b8fb0","#3f7d54","#a8492f"];
+// Bubble radius keyed off the comp status label, not the raw compTier number, so the internal
+// compTier scale (used for scoring math) can change without silently resizing the chart.
+const compTierRadius = {"not-meeting":8, "meeting":14, "exceeding":20};
 const labels5 = deals.map(d=>d.company + (d.company==="Google" ? (d.role.includes("Lead") ? " (Lead)" : " (Sr Mgr)") : ""));
 
 function openDeal(idx){ window.open(deals[idx].jobUrl, '_blank'); }
@@ -573,15 +581,15 @@ const quadrantChart = new Chart(document.getElementById('quadrantChart'), {
   type:'bubble',
   data:{ datasets: deals.map((d,i)=>({
     label: d.company + ": " + d.techTag,
-    data:[{x:d.closeConfidence, y:d.overallFit, r: 6 + d.accept.compTier*5}],
+    data:[{x:d.closeConfidence, y:d.overallFit, r: compTierRadius[d.compStatus]}],
     backgroundColor: palette[i] + "cc",
     borderColor: palette[i], borderWidth:2
   })) },
   options:{
     responsive:true, maintainAspectRatio:false,
     scales:{
-      x:{ title:{display:true, text:'Close Confidence Score'}, min:20, max:70 },
-      y:{ title:{display:true, text:'Overall Fit Score'}, min:50, max:100 }
+      x:{ title:{display:true, text:'Close Confidence Score'}, min:0, max:100 },
+      y:{ title:{display:true, text:'Overall Fit Score'}, min:0, max:100 }
     },
     plugins:{ legend:{ position:'bottom', labels:{font:{size:9}} } },
     onClick:(evt, elements)=>{ if(elements.length){ openDeal(elements[0].datasetIndex); } }
@@ -600,13 +608,12 @@ const broader = [
   {co:"ServiceNow", role:"GTM Operations Director, Partner/Embedded Solutions", tag:"Live conversation (McShane)", comp:"$$$"},
   {co:"Cloudflare", role:"Sr. Director, Strategy and Planning", tag:"Warm contacts, not yet activated", comp:"$$"},
   {co:"Datadog", role:"Chief of Staff, WW Technical Solutions", tag:"1 contact, not yet reached out", comp:"$$"},
-  {co:"HPE (Aruba)", role:"Presales Engineer, Channel, Networking", tag:"Scoping call held, status uncertain", comp:"$"},
+  {co:"HPE (Aruba)", role:"Presales Engineer, Channel, Networking", tag:"⚫ Ruled out, honey pot role, pulled after posting", comp:"N/A"},
   {co:"HPE (Aruba)", role:"Cybersecurity Sales Specialist (NE/MA/CT)", tag:"2nd-degree HPE contacts", comp:"$$$"},
   {co:"Vanta", role:"Head of GTM Operations and Strategy", tag:"No warm path", comp:"$$$"},
   {co:"AHEAD", role:"Partner Account Manager (GCP) / IO Sales Specialist", tag:"2 contacts, not yet reached out", comp:"$"},
   {co:"Numerator", role:"Enterprise Sales Director (FinServ)", tag:"1 contact, not yet reached out", comp:"$"},
   {co:"Meter", role:"Partner Technical Enablement", tag:"⚫ Ruled out, not a fit per Partner Leader", comp:"N/A"},
-  {co:"Google", role:"Principal Lead, Go-To-Market AI Tools", tag:"Recommended application, clears min-quals", comp:"$$$"},
   {co:"Google", role:"Strategic Initiative Lead, Generative AI", tag:"No contact", comp:"$$$$"},
   {co:"Google", role:"Head of Strategic Partnerships, SMB", tag:"No contact", comp:"$$$$"},
   {co:"Salesforce", role:"Director, BD, Global Technology Partnerships", tag:"No contact", comp:"$$"},
