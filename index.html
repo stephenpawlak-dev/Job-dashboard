@@ -21,7 +21,6 @@
   header p{ margin:0; color:var(--sub);}
   .sprint{ text-align:center; font-size:0.82rem; color:var(--gold); font-weight:700; margin:8px 0 16px;}
 
-  .whatchanged{ background:#fff7e6; border:1px solid #f0dba8; border-radius:12px; padding:12px 18px; font-size:0.8rem; color:#6b5218; max-width:860px; margin:0 auto 24px; line-height:1.5;}
 
   .synopsis{ background:var(--card); border:1px solid var(--line); border-radius:20px; padding:24px 28px; box-shadow:var(--shadow); margin-bottom:24px;}
   .synopsis h2{ margin:0 0 4px; font-size:1.15rem; color:var(--navy);}
@@ -156,7 +155,7 @@
 <div class="wrap">
 
   <header>
-    <h1>📊 Sales Executive Board <span style="font-size:1rem; color:var(--sub); font-weight:400;">v2.4</span></h1>
+    <h1>📊 Sales Executive Board</h1>
     <p>Personal career-search pipeline using a 3-pillar model, stage-weighted close confidence, and clickable job links</p>
   </header>
   <div class="sprint">30-DAY SPRINT: AUG 1 TO AUG 31, 2026</div>
@@ -183,10 +182,6 @@
       </div>
     </div>
     <div class="synopsis-cta">🤝 <b>How you can help:</b> if you know someone in a leadership seat at a networking, security, or cloud infrastructure company (especially one that's recently made an AI-related acquisition), or in AI/GTM strategy at a big tech company, or building something interesting at a growing infra startup, I would love an introduction, warm or otherwise.</div>
-  </div>
-
-  <div class="whatchanged">
-    <b>What changed this pass:</b> Close Confidence now weights stage even more heavily, 70% stage, 20% fit, 10% likelihood to accept, up from 60/25/15, since early stage deals with a big personal connection boost were still scoring too high on fit and accept alone. The comp tier scale was also corrected, Meeting now scores 80 instead of 60, so it sits proportionally between Not Meeting (20) and Exceeding (100). A new Final Interview stage (80%) was added between Second Stage and Offer. Stage boosts for personal connections now only apply when the contact is the actual hiring manager, not a general referrer or recommender, both Google roles dropped to 0% stage confidence as a result since neither has an identified hiring manager yet. The 30 day master metric still does not treat all 5 opportunities as independent bets, it is dominated by the strongest opportunity, with the other 4 contributing a discounted amount of backup confidence. Write ups on this page no longer use dashes.
   </div>
 
   <div class="master-metric" id="masterMetric"></div>
@@ -216,16 +211,17 @@
 
       <table>
         <tr><th>Stage</th><th>Baseline confidence</th></tr>
-        <tr><td>Informational / Applying / Applied</td><td>0%</td></tr>
-        <tr><td>Recruiter Screening</td><td>10%</td></tr>
-        <tr><td>Hiring Manager Discussion</td><td>20%</td></tr>
-        <tr><td>Second Stage</td><td>60%</td></tr>
-        <tr><td>Final Interview (where applicable)</td><td>80%</td></tr>
-        <tr><td>Offer</td><td>100%</td></tr>
+        <tr><td>Informational / Applying</td><td>0%</td></tr>
+        <tr><td>Applied</td><td>5%</td></tr>
+        <tr><td>Recruiter Screening</td><td>15%</td></tr>
+        <tr><td>Hiring Manager Discussion</td><td>25%</td></tr>
+        <tr><td>Second Stage</td><td>40%</td></tr>
+        <tr><td>Final Interview (where applicable)</td><td>50%</td></tr>
+        <tr><td>Offer</td><td>95%</td></tr>
       </table>
-      <p style="font-size:0.78rem; color:var(--sub);">This curve was tightened after review. Every stage before Second Stage now earns less baseline confidence than it did in the prior version, since none of the 5 current opportunities are actually far along yet, and the old numbers were producing false confidence. Personal-connection boosts (a recommendation, a champion, someone on the team) still apply on top, independent of formal stage.</p>
+      <p style="font-size:0.78rem; color:var(--sub);">Curve updated again based on further research into how these funnels typically convert. Stage Confidence is the baseline for a deal's actual formal stage, with one exception: a real, highlighted hiring manager personally engaged ahead of Second Stage gets a 25 percent increase applied to that stage's baseline, a proportional bump, not a flat point add, so it cannot leapfrog real formal progress later in the funnel, see the outlier callout below. That boost stops applying at Second Stage and beyond, real formal progress already covers it there. Separately, personal and hiring manager connection strength that is not this specific pre Second Stage boost is still real and useful, it gets you in the door, and it lives in Likelihood to Accept, specifically the Hiring Manager Relationship sub-factor. A genuine, direct relationship with the actual hiring manager scores a 5 there, a warm personal contact who is not the hiring manager holds at a neutral 3.</p>
 
-      <div class="outlier-caveat">🔎 <b>No active outliers.</b> The outlier override exists for real hiring manager level engagement ahead of a deal's formal stage. HPE and Meter both used to carry that flag, but both have since progressed far enough in the real process (HPE into a formal Second Stage interview loop, Meter through direct hiring manager outreach) that their formal stage now reflects reality on its own, no manual override needed.</div>
+      <div class="outlier-caveat">🔎 <b>Outlier: Meter.</b> Tyler Crowley, the SE hiring manager, reached out unprompted, ahead of Second Stage, so this deal's Hiring Manager Discussion baseline (25%) gets a 25 percent increase, landing Stage Confidence at 31%, still below HPE's real Second Stage baseline of 40%. An early, warm conversation should not outrank genuine formal progress, it is a real signal, just not that big a one. HPE no longer needs the boost, it has genuinely progressed to a formal Second Stage interview loop, which is past the point where this override applies.</div>
 
       <h4>Master metric: confidence of landing something in 30 days</h4>
       <p>This is the number at the top of the page, and it changed shape after review. The first version combined all 5 opportunities as if they were fully independent bets. That math is real, but it produces a high number even when every individual deal is weak, purely because there are 5 of them running at once. It felt wrong because it was overstating things: these processes are not fully independent in reality, since market conditions and your overall positioning affect all of them somewhat together.</p>
@@ -261,13 +257,14 @@
     <table class="broad-table" id="broaderTable"></table>
   </details>
 
-  <footer>Personal career-search dashboard v2.4, updated Aug 3, 2026</footer>
+  <footer>Personal career-search dashboard, updated Aug 3, 2026</footer>
 </div>
 
 <script>
 const stageLabels = ["Informational","Applying","Applied","Recruiter Screening","Hiring Manager Discussion","Second Stage","Final Interview","Offer"];
-const stageBaseline = [0, 0, 0, 10, 20, 60, 80, 100];
-const OUTLIER_LEVEL = 20; // matches the Hiring Manager Discussion baseline
+const stageBaseline = [0, 0, 5, 15, 25, 40, 50, 95];
+const HM_BOOST_MULTIPLIER = 1.25; // a 25 percent increase applied to the formal stage baseline, not a flat point add, when a real, highlighted hiring manager is personally engaged ahead of Second Stage
+const SECOND_STAGE_INDEX = stageLabels.indexOf("Second Stage");
 const pillarWeights = {jobMatch:0.40, career:0.35, accept:0.25};
 const closeWeights = {jobMatch:0.20, stage:0.70, accept:0.10};
 const masterWeights = {stage:0.80, accept:0.20}; // set independently of Close Confidence's ratio, fit excluded entirely, stage dominant on purpose for the 30 day question specifically
@@ -286,7 +283,7 @@ const deals = [
       culture:{wlb:5, travel:4, location:5, hmRelationship:5, overallCulture:5},
       compTier:4
     },
-    stageBoost:15, boostReason:"+15: hiring manager Jay Killion personally ran a full call covering territory, comp, and the exact interview loop, and already named the next three interviewers by name, a materially warmer entry than a typical Second Stage loop",
+    hmNote:"hiring manager Jay Killion personally ran a full call covering territory, comp, and the exact interview loop, and already named the next three interviewers by name. That real, direct relationship is why HM Relationship sits at 5 of 5 here, it does not touch Stage Confidence, which reflects the real Second Stage baseline only",
     compCash:"$300K", compCashNote:"Cash: hiring manager Jay directly targeted $300K OTE, base plus commission, for Stephen specifically in the Aug 3 call. Tom Wilburn's own benchmark for candidates without a sales background is lower, around $275K OTE. Downgraded from the posted range midpoint now that a real conversation has set expectations", compEquity:"Not confirmed", compEquityNote:"Equity: RSUs are used as a retention tool for over achievers and a recruiting tool, per Jay, but are not guaranteed and need recruiter confirmation to be real. Treated as an unconfirmed upside, not counted in the total", compTotal:"~$300K, RSU upside unconfirmed", compStatus:"meeting", compConfidence:"Confirmed verbally by the hiring manager, but a target, not a guarantee",
     locationMode:"Remote, confirmed in posting", travelNote:"Est. 20 to 30% for an enterprise field specialist, not confirmed",
     meddpicc:{
@@ -311,7 +308,7 @@ const deals = [
       culture:{wlb:5, travel:4, location:4, hmRelationship:3, overallCulture:4},
       compTier:5
     },
-    stageBoost:0, boostReason:"0: recommender plus 2 fraternity brothers are culture and fit validators, not the hiring manager. No direct hiring manager conversation has happened yet, so no stage boost applies. Their strength shows up in the champion field instead, not here",
+    hmNote:"recommender plus 2 fraternity brothers are culture and fit validators, not the hiring manager. No direct hiring manager conversation has happened yet, so HM Relationship stays at a neutral 3 of 5 rather than being marked up, and Stage Confidence stays at the true baseline for this stage. Their strength still shows up in the champion field",
     compCash:"$274K", compCashNote:"Cash: midpoint of posted base $186K to $270K plus 20% bonus (sits in the meeting band on its own)", compEquity:"~$125K/yr", compEquityNote:"Equity: Google L6 Program Manager published median stock grant (levels.fyi), closest public analog", compTotal:"~$399K", compStatus:"exceeding", compConfidence:"Estimated",
     locationMode:"Hybrid, 3 days in office and 2 days remote (confirmed)", travelNote:"Est. ~10%, not confirmed",
     meddpicc:{
@@ -336,7 +333,7 @@ const deals = [
       culture:{wlb:5, travel:4, location:4, hmRelationship:3, overallCulture:4},
       compTier:5
     },
-    stageBoost:0, boostReason:"0: the old boss's submitted recommendation is a strong champion signal, but he is not the hiring manager for this role and no hiring manager conversation has happened yet. No stage boost applies until a real hiring manager is engaged",
+    hmNote:"the old boss's submitted recommendation is a strong champion signal, but he is not the hiring manager for this role and no hiring manager conversation has happened yet. HM Relationship stays at a neutral 3 of 5, and Stage Confidence stays at the true baseline, until a real hiring manager is engaged",
     compCash:"$274K", compCashNote:"Cash: midpoint of posted base $186K to $270K plus 20% bonus (sits in the meeting band on its own)", compEquity:"~$125K/yr", compEquityNote:"Equity: Google L6 Program Manager published median stock grant (levels.fyi), closest public analog", compTotal:"~$399K", compStatus:"exceeding", compConfidence:"Estimated",
     locationMode:"Hybrid, 3 days in office and 2 days remote (confirmed)", travelNote:"Est. ~10%, not confirmed",
     meddpicc:{
@@ -361,7 +358,7 @@ const deals = [
       culture:{wlb:3, travel:4, location:3, hmRelationship:3, overallCulture:3},
       compTier:4
     },
-    stageBoost:8, boostReason:"+8: one well-known personal contact vouches for culture, flags it as team/manager-dependent",
+    hmNote:"one well known personal contact vouches for culture, flags it as team and manager dependent, but is not Andrew Levy, the identified hiring manager. HM Relationship stays at a neutral 3 of 5, and Stage Confidence stays at the true Recruiter Screening baseline",
     compCash:"$191K", compCashNote:"Cash: midpoint of posted base $162.7K to $220.2K (salaried, no commission/OTE structure)", compEquity:"~$97K/yr", compEquityNote:"Equity: implied from the published Business Development Manager total-comp median ($288K) minus this posting's cash midpoint", compTotal:"~$288K", compStatus:"meeting", compConfidence:"Estimated",
     locationMode:"In Office, 5 days per week on site (confirmed)", travelNote:"Est. ~15%, not confirmed",
     meddpicc:{
@@ -379,24 +376,24 @@ const deals = [
     techTag:"Cloud Networking (NaaS)",
     jobUrl:"https://www.meter.com/open-roles?dept=sales&role=sales-engineering-midwest",
     stageIndex:4, stageDate:"HM outreach received Aug 2", nextAction:"Schedule follow up call with SE hiring manager", nextDate:"Week of Aug 3",
-    isOutlier:false,
+    isOutlier:true, outlierNote:"Tyler Crowley, the SE hiring manager, reached out unprompted, well beyond a routine recruiter-arranged hiring manager meeting, so this deal gets a 25 percent increase applied to the Hiring Manager Discussion baseline, the pre Second Stage direct hiring manager boost",
     jobMatch:{mix:4, stakeholder:4, ambiguity:3, influence:4, tech:4},
     career:{intrapreneurial:4, growth:5, croCto:4, breadth:4, bdMetrics:2},
     accept:{
       culture:{wlb:4, travel:3, location:5, hmRelationship:5, overallCulture:3},
       compTier:4
     },
-    stageBoost:5, boostReason:"plus 5: the SE hiring manager proactively reached out, a stronger unprompted signal than earlier expressed interest, tempered since travel and exact comp structure are still unconfirmed",
+    hmNote:"Tyler Crowley, the SE hiring manager, proactively reached out, a stronger unprompted signal than earlier expressed interest, tempered since travel and exact comp structure are still unconfirmed. That direct outreach is why HM Relationship sits at 5 of 5 here, and it is also exactly why the formal stage itself is genuinely Hiring Manager Discussion, not a boosted number on top of something earlier",
     compCash:"$190K", compCashNote:"Cash: OTE midpoint $165K split 70/30 base/variable, variable at an assumed 150% attainment with accelerators. Hiring manager indicated in outreach that total comp meets Stephen's range, exact structure not yet itemized", compEquity:"~$37.5K/yr", compEquityNote:"Equity: illustrative only, about 0.015% grant as employee #200 in a Series C company near $1B valuation, vested over 4 years. Illiquid, could be worth far less or more at any actual exit", compTotal:"Est. $300K+, per HM's verbal range indication", compStatus:"meeting", compConfidence:"Estimated, verbal from HM outreach, not itemized",
     locationMode:"Remote, field-based, assumed", travelNote:"Unknown. Earlier estimate assumed a field-heavy role, but scope for this specific opening has not been confirmed by the hiring manager yet",
     meddpicc:{
-      eb:"Likely the SE hiring manager himself, formal decision authority not yet confirmed",
-      champion:"Multiple ex-Meraki friends on the SE/sales side, plus the SE hiring manager, who reached out directly expressing interest in Stephen for the role",
+      eb:"Tyler Crowley, the SE hiring manager, though formal decision authority for this specific req is not yet confirmed",
+      champion:"Multiple ex-Meraki friends on the SE/sales side, plus Tyler Crowley himself, who reached out directly: Hello sir. Have some time to catch up next week? The SE team at Meter is heavily involved in product direction while staying close to customers and partners. It's a pretty unique position and hopefully a sweet spot you'd appreciate.",
       pain:"Meter's enterprise SE bench needs Midwest coverage",
       criteria:"Technical credibility plus enterprise customer-facing polish",
-      process:"Hiring manager reached out directly Aug 2. A real conversation is underway, next formal step still to be scheduled",
+      process:"Hiring manager reached out directly Aug 2, asking to catch up next week. A real conversation is underway, next formal step still to be scheduled",
       competing:"Lower priority this week than the Aug 2 and Aug 5 deadlines",
-      note:"Hiring manager describes the role as staying close to product management, customers, and partners, with room to expand into technical and sales, and a possible path toward a future CTO or CRO track role within Meter. Career Trajectory score raised accordingly, though this is still an early conversation."
+      note:"Tyler's own description, SE at Meter stays close to product direction, customers, and partners, with room to expand into technical and sales, and a possible path toward a future CTO or CRO track role within Meter. Career Trajectory score raised accordingly. Worth noting for fit generally: startups like Meter typically run flatter hierarchies than an enterprise such as HPE or Google, which in practice means more real room to move laterally or up once established, not just a fixed lane. That upside is still entirely dependent on how the actual conversation with Tyler develops, this is still an early conversation, not a promise."
     },
     redirectNote:"Partner Technical Enablement role ruled out. Direct feedback from the Partner Leader was not a fit. Interest redirected to the Sales Engineering track above, where the hiring manager has since reached out directly."
   },
@@ -412,8 +409,13 @@ deals.forEach(d=>{
   d.acceptScore = Math.round(0.5*d.cultureScore + 0.5*d.compScore);
   d.overallFit = Math.round(pillarWeights.jobMatch*d.jobMatchScore + pillarWeights.career*d.careerScore + pillarWeights.accept*d.acceptScore);
 
-  const base = d.isOutlier ? OUTLIER_LEVEL : stageBaseline[d.stageIndex];
-  d.stageConfidence = Math.max(0, Math.min(100, base + d.stageBoost));
+  // Stage confidence is the baseline for the deal's actual formal stage. The one exception: if a real,
+  // highlighted hiring manager is personally engaged before Second Stage (isOutlier:true), that stage's
+  // baseline gets a 25 percent increase (multiplied, not a flat point add), reflecting genuine engagement
+  // that outruns the formal step without letting an early conversation leapfrog real formal progress.
+  // The boost never applies at Second Stage or later, real formal progress already covers that.
+  const base = (d.isOutlier && d.stageIndex < SECOND_STAGE_INDEX) ? stageBaseline[d.stageIndex] * HM_BOOST_MULTIPLIER : stageBaseline[d.stageIndex];
+  d.stageConfidence = Math.max(0, Math.min(100, Math.round(base)));
   d.closeConfidence = Math.round(closeWeights.jobMatch*d.jobMatchScore + closeWeights.stage*d.stageConfidence + closeWeights.accept*d.acceptScore);
   d.contrib30 = masterWeights.stage*d.stageConfidence + masterWeights.accept*d.acceptScore;
 });
@@ -526,7 +528,7 @@ deals.forEach(d=>{
         <div class="row"><span class="k">E · Economic Buyer</span>${d.meddpicc.eb}</div>
         <div class="row"><span class="k">D · Decision Criteria</span>${d.meddpicc.criteria}</div>
         <div class="row"><span class="k">D · Decision Process</span>${d.meddpicc.process}</div>
-        <div class="row"><span class="k">P · Probability to Close</span>${d.closeConfidence}. Stage boost: ${d.boostReason}</div>
+        <div class="row"><span class="k">P · Probability to Close</span>${d.closeConfidence}</div>
         <div class="row"><span class="k">I · Identified Pain</span>${d.meddpicc.pain}</div>
         <div class="row"><span class="k">C · Champion</span>${d.meddpicc.champion}</div>
         <div class="row"><span class="k">C · Competing Priority</span>${d.meddpicc.competing}</div>
@@ -540,6 +542,7 @@ deals.forEach(d=>{
 
         <div class="k" style="margin-top:8px;">Likelihood to Accept, 25% weight (50% Culture / 50% Comp)</div>
         <table class="math-table">${acRows}<tr class="total"><td>Accept Score</td><td>${d.acceptScore}</td></tr></table>
+        <div class="row" style="margin-top:8px;"><span class="k">Why the HM Relationship number is what it is</span>${d.hmNote}</div>
       </div>
     </details>
   `;
