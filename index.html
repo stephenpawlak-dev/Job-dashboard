@@ -148,6 +148,13 @@
   .broad-table th{ color:var(--sub); font-size:0.72rem; text-transform:uppercase;}
   .tag-mini{ font-size:0.68rem; background:#eef2f6; color:var(--navy2); padding:2px 8px; border-radius:999px;}
 
+  .cal-week{ margin-top:14px;}
+  .cal-week .broad-table td.day{ white-space:nowrap; font-weight:700; color:var(--navy); vertical-align:top; width:120px;}
+  .cal-week .broad-table td.items{ line-height:1.5;}
+  .cal-week .broad-table td.items ul{ margin:0; padding-left:18px;}
+  .cal-week .broad-table td.items li{ margin-bottom:4px;}
+  .cal-week .broad-table tr.no-activity td.items{ color:var(--sub); font-style:italic;}
+
   footer{ text-align:center; margin-top:44px; font-size:0.76rem; color:var(--sub);}
 </style>
 </head>
@@ -192,18 +199,23 @@
     <summary>📖 How these numbers work (methodology)</summary>
     <div class="method-body">
 
-      <h4>1. Job Match Fit: 40% of Overall Fit Score</h4>
-      <p>Business/Technical/Operational Mix, Stakeholder Management, Ambiguity to Execution, Influence vs. Formal Team Leadership (scores high when a role rewards influence-without-authority rather than requiring proven people-management, a real, honestly-tracked gap), and Technology Fit (Cloud Networking / Cloud Security / Agentic AI and Ops).</p>
+      <h4>1. Job Match Fit: 35% of Overall Fit Score</h4>
+      <p>Business/Technical/Operational Mix, Stakeholder Management, Ambiguity to Execution, Influence vs. Formal Team Leadership (scores high when a role rewards influence-without-authority, a real strength this profile has, not a workaround for a gap), and Technology Fit (Cloud Networking / Cloud Security / Agentic AI and Ops).</p>
 
-      <h4>2. Career Trajectory: 35% of Overall Fit Score</h4>
+      <h4>2. Qualification Fit: 30% of Overall Fit Score</h4>
+      <p>Added to separate soft fit signals from the actual qualifications a posting lists. Every role's <b>Minimum Qualifications</b> are checked against a canonical set of qualifying facts (20 years at Cisco, 9+ years GTM strategy and product management since 2017, 10+ years sales experience, an MBA plus a BS in Computer Science, and no formal people management but extensive cross-functional leadership through influence). A minimum requirement that is genuinely ambiguous against those facts still gets an investigate flag on the card, it does not disqualify a role, it just marks something worth confirming before applying. Only a requirement specifically about managing people, managing people-leaders, or owning a budget can trigger a flag on leadership grounds, generic led-teams or cross-functional language never does.</p>
+      <p>Every qualification, minimum and preferred, is scored 1 to 5 for real fit and blended into one number: minimum qualifications carry a flat weight of 1 each, preferred qualifications carry a flat weight of 1.25 each, a 25 percent premium per item since preferred quals differentiate a candidate rather than just clearing the bar. Weighted average, scaled by 20. Qualifications are no longer separately weighted by perceived importance within their own category, each counts equally there, minimum vs. preferred is the only distinction that carries different weight. This intentionally keeps a handful of weak preferred items from overriding several strongly cleared minimum requirements, since minimum requirements are the real bar and there are usually more of them. Roles without a formal scraped posting (HPE, Meter) have no minimum qualifications to weigh, so their score runs entirely off preferred-style items built from the hiring manager's actual stated bar, clearly flagged as such on the card rather than left unscored or backed into a fabricated posting.</p>
+
+      <h4>3. Career Trajectory: 25% of Overall Fit Score</h4>
       <p>Intrapreneurial Latitude, Growing Segment/BU, CRO/CTO Path Match, Cross-Business Breadth, BD/Metrics Ownership.</p>
 
-      <h4>3. Likelihood to Accept: 25% of Overall Fit Score</h4>
+      <h4>4. Likelihood to Accept: 10% of Overall Fit Score</h4>
       <p><b>50% Culture</b>, itself an average of five factors: Work/Life Balance, Travel Load, Location Mode (Remote scores best, Hybrid better, In-Office still good), Hiring Manager Relationship (this one is explicitly provisional, since it updates as real HR/HM interviews happen), and Overall Culture (growth opportunity, hire-from-within pattern, stability of the team/role).</p>
       <p><b>50% Comp</b>, using <b>total comp</b> (cash plus equity) checked against your three personal bands and shown only as a verdict: <b>Not Meeting</b>, <b>Meeting</b>, or <b>Exceeding</b>. No dollar figures are displayed anywhere on this page.</p>
 
       <h4>Overall Fit Score</h4>
-      <p><code>Overall Fit = 0.40 × Job Match Fit + 0.35 × Career Trajectory + 0.25 × Likelihood to Accept</code></p>
+      <p><code>Overall Fit = 0.35 × Job Match Fit + 0.30 × Qualification Fit + 0.25 × Career Trajectory + 0.10 × Likelihood to Accept</code></p>
+      <p style="font-size:0.78rem; color:var(--sub);">Likelihood to Accept dropped from 20% to 10% weight. It measures whether Stephen would want the role, culture and comp, not whether the employer would extend one, so it should not carry equal weight against the three factors that actually predict getting an offer in the first place. It still counts, comp and culture are real, just not as a co-equal driver of overall fit.</p>
 
       <h4>Close Confidence Score</h4>
       <p><code>Close Confidence = 0.20 × Job Match Fit + 0.70 × Stage Confidence + 0.10 × Likelihood to Accept</code></p>
@@ -225,7 +237,8 @@
 
       <h4>Master metric: confidence of landing something in 30 days</h4>
       <p>This is the number at the top of the page, and it changed shape after review. The first version combined all 5 opportunities as if they were fully independent bets. That math is real, but it produces a high number even when every individual deal is weak, purely because there are 5 of them running at once. It felt wrong because it was overstating things: these processes are not fully independent in reality, since market conditions and your overall positioning affect all of them somewhat together.</p>
-      <p>The new version is deliberately dominated by your strongest opportunity. Each deal still gets a <b>30-Day Contribution</b> weighted <b>80% Stage Confidence / 20% Likelihood to Accept</b>, with Job Match Fit and Career Trajectory excluded entirely, since fit does not help you land something in the next 30 days if a process never actually moves. But instead of combining all 5 as equal independent bets, the top-scoring deal (currently HPE) counts in full, and the other 4 are combined among themselves and then only given half credit toward the total, to reflect that they are backup shots, not a fully independent hedge.</p>
+      <p>The version after that was deliberately dominated by the single strongest opportunity, full credit for the top deal, everything else pooled and heavily discounted. That undercounted a real situation: once more than one process is genuinely past a hiring manager conversation, they are each a real, separate shot, not noise to be averaged into a backup pool.</p>
+      <p>Current version, a stage-cohort model. Only deals that have reached at least Hiring Manager Discussion count toward this number at all, earlier-stage roles are excluded entirely, not discounted, excluded. Applied is real progress and still shown on that role's own card, but it does not move this specific number until a hiring manager is actually engaged. Every counted deal is combined using its own <b>Close Confidence</b>, standard probability of landing at least one of several bets: 1 minus the product of each one's chance of not closing. More roles at this stage raises the combined number on its own, that is intentional, more real shots in flight should mean more overall confidence.</p>
 
       <h4>Comp: tier only, no figures shown</h4>
       <p>Each role's total comp (cash plus equity, researched per company) is checked against your three bands and shown only as a verdict: <b>Not Meeting</b>, <b>Meeting</b>, or <b>Exceeding</b>. No dollar figure appears anywhere on this page. HPE clears the top tier on cash alone. Google's verdict depends on an equity estimate holding, since Google does not publish figures for this specific req. Amazon lands in the middle tier even with equity added. Meter falls short, and its equity is illiquid private stock, a different risk category than the other three companies' public-market equity.</p>
@@ -235,7 +248,7 @@
   <h2 class="section-title">Pillar Scores by Opportunity</h2>
   <div class="chart-grid">
     <div class="chart-card">
-      <h3>Job Match Fit · Career Trajectory · Likelihood to Accept · Stage (line)</h3>
+      <h3>Job Match Fit · Qualification Fit · Career Trajectory · Likelihood to Accept · Stage (line)</h3>
       <p class="desc">Bars are 0 to 100. The line is Stage Confidence, how far along and how confident the process actually is, independent of fit quality. Click a bar, or a link below, to open that job posting.</p>
       <div class="chart-wrap"><canvas id="pillarChart"></canvas></div>
       <div class="chart-links" id="pillarLinks"></div>
@@ -253,9 +266,18 @@
 
   <h2 class="section-title" style="margin-top:36px;">Broader Pipeline</h2>
   <details class="broader">
-    <summary>14 additional opportunities tracked, not yet re-scored under this methodology</summary>
-    <table class="broad-table" id="broaderTable"></table>
+    <summary>15 additional opportunities tracked, not yet re-scored under this methodology, grouped by engagement warmth</summary>
+    <div id="broaderTable"></div>
   </details>
+
+  <h2 class="section-title" style="margin-top:36px;">Previous Weeks</h2>
+  <details class="broader">
+    <summary>3 closed-out roles from earlier Top 5 sprints, kept here for reference</summary>
+    <table class="broad-table" id="archiveTable"></table>
+  </details>
+
+  <h2 class="section-title" style="margin-top:36px;">Weekly Activity Calendar</h2>
+  <div id="calendarWeeks"></div>
 
   <footer>Personal career-search dashboard, updated Aug 3, 2026</footer>
 </div>
@@ -265,10 +287,41 @@ const stageLabels = ["Informational","Applying","Applied","Recruiter Screening",
 const stageBaseline = [0, 0, 5, 15, 25, 40, 50, 95];
 const HM_BOOST_MULTIPLIER = 1.25; // a 25 percent increase applied to the formal stage baseline, not a flat point add, when a real, highlighted hiring manager is personally engaged ahead of Second Stage
 const SECOND_STAGE_INDEX = stageLabels.indexOf("Second Stage");
-const pillarWeights = {jobMatch:0.40, career:0.35, accept:0.25};
+const pillarWeights = {jobMatch:0.35, qualFit:0.30, career:0.25, accept:0.10};
 const closeWeights = {jobMatch:0.20, stage:0.70, accept:0.10};
-const masterWeights = {stage:0.80, accept:0.20}; // set independently of Close Confidence's ratio, fit excluded entirely, stage dominant on purpose for the 30 day question specifically
-const backupCredit = 0.5; // the other 4 opportunities are not truly independent bets, so only half credit applies
+
+// Canonical qualifying facts, checked consistently against every role's minimum and preferred
+// qualifications instead of re-litigating Stephen's background deal by deal. The people management
+// line matters: only a requirement specifically about managing people, managing people-leaders, or
+// owning a budget should ever trigger a minimum-qualifications flag on leadership grounds. Generic
+// "led teams" or cross-functional leadership language is not a gap, it is exactly what this profile is.
+const stephenQualifyingFacts = {
+  tenure:"20 years total tenure at Cisco",
+  gtmTenure:"9+ years in GTM strategy, business strategy, and product management titled roles, since May 2017",
+  salesExperience:"10+ years of sales experience",
+  education:"MBA in Organizational Change, Lake Forest Graduate School of Management, plus a BS in Computer Science, Rensselaer Polytechnic Institute",
+  peopleManagement:"No formal people management: no direct reports, no budget or P&L ownership documented. Extensive cross-functional team leadership through influence, formalized governance and RACI structures, and leading through ambiguity. Not treated as a general leadership gap, only a requirement specifically about managing people, managing people-leaders, or owning a budget triggers a flag on this basis."
+};
+
+// Every qualification, minimum and preferred, gets a 1 to 5 fit score. Minimum qualifications carry a
+// flat weight of 1, preferred qualifications carry a flat weight of 1.25, a 25 percent premium per item
+// since preferred quals are what differentiate a candidate, not just clear the bar. Qualifications are
+// not weighted individually by perceived importance anymore, each counts equally within its own
+// category. This replaced an earlier version where only preferred quals fed the score, which let 1 or 2
+// weak preferred items override several strongly cleared minimum requirements, backwards, since minimum
+// requirements are the actual bar and there are usually more of them. A minimum requirement that is
+// genuinely ambiguous against Stephen's real background still gets a separate investigate flag on the
+// card, that flag is about transparency, it does not remove the item's fit score from the blend.
+function scoreQualFit(d){
+  const flags = (d.minQuals || []).filter(q=>q.status==='flag');
+  const items = [
+    ...(d.minQuals || []).map(q=>({fit:q.fit, catWeight:1})),
+    ...(d.preferredQuals || []).map(q=>({fit:q.fit, catWeight:1.25}))
+  ];
+  const wSum = items.reduce((a,q)=>a+q.catWeight,0);
+  const score = wSum ? Math.round((items.reduce((a,q)=>a+q.catWeight*q.fit,0)/wSum) * 20) : 0;
+  return {qualFitScore:score, qualGateFlags:flags};
+}
 
 const deals = [
   {
@@ -284,6 +337,14 @@ const deals = [
       compTier:4
     },
     hmNote:"hiring manager Jay Killion personally ran a full call covering territory, comp, and the exact interview loop, and already named the next three interviewers by name. That real, direct relationship is why HM Relationship sits at 5 of 5 here, it does not touch Stage Confidence, which reflects the real Second Stage baseline only",
+    minQuals:[],
+    qualSourceNote:"No formal minimum or preferred qualifications list exists for this req, this card was built from the Aug 3 hiring manager call, not a scraped posting, so there is nothing to gate check against. Qualification Fit below is scored against Tom Wilburn's stated hiring bar from that call instead.",
+    preferredQuals:[
+      {item:"Technical enough to run demos and answer baseline SE questions without being an SE", fit:4},
+      {item:"Real cloud networking experience", fit:4},
+      {item:"Confident presenting to a CIO or a room of 50 partners", fit:5},
+      {item:"Genuine drive rather than coasting on a strong account team", fit:5}
+    ],
     compCash:"$300K", compCashNote:"Cash: hiring manager Jay directly targeted $300K OTE, base plus commission, for Stephen specifically in the Aug 3 call. Tom Wilburn's own benchmark for candidates without a sales background is lower, around $275K OTE. Downgraded from the posted range midpoint now that a real conversation has set expectations", compEquity:"Not confirmed", compEquityNote:"Equity: RSUs are used as a retention tool for over achievers and a recruiting tool, per Jay, but are not guaranteed and need recruiter confirmation to be real. Treated as an unconfirmed upside, not counted in the total", compTotal:"~$300K, RSU upside unconfirmed", compStatus:"meeting", compConfidence:"Confirmed verbally by the hiring manager, but a target, not a guarantee",
     locationMode:"Remote, confirmed in posting", travelNote:"Est. 20 to 30% for an enterprise field specialist, not confirmed",
     meddpicc:{
@@ -297,105 +358,151 @@ const deals = [
     }
   },
   {
-    company:"Google", role:"Strategic Program Lead, Engineering Excellence, Cloud",
-    techTag:"Cloud GTM Strategy",
-    jobUrl:"https://www.google.com/about/careers/applications/jobs/results/97800892551439046-strategic-program-lead/",
-    stageIndex:1, stageDate:"Applying, self-imposed Sun Aug 2 deadline passed unmet", nextAction:"Submit application", nextDate:"Overdue since Sun Aug 2",
-    isOutlier:false,
-    jobMatch:{mix:5, stakeholder:5, ambiguity:5, influence:5, tech:4},
-    career:{intrapreneurial:3, growth:3, croCto:4, breadth:4, bdMetrics:3},
-    accept:{
-      culture:{wlb:5, travel:4, location:4, hmRelationship:3, overallCulture:4},
-      compTier:5
-    },
-    hmNote:"recommender plus 2 fraternity brothers are culture and fit validators, not the hiring manager. No direct hiring manager conversation has happened yet, so HM Relationship stays at a neutral 3 of 5 rather than being marked up, and Stage Confidence stays at the true baseline for this stage. Their strength still shows up in the champion field",
-    compCash:"$274K", compCashNote:"Cash: midpoint of posted base $186K to $270K plus 20% bonus (sits in the meeting band on its own)", compEquity:"~$125K/yr", compEquityNote:"Equity: Google L6 Program Manager published median stock grant (levels.fyi), closest public analog", compTotal:"~$399K", compStatus:"exceeding", compConfidence:"Estimated",
-    locationMode:"Hybrid, 3 days in office and 2 days remote (confirmed)", travelNote:"Est. ~10%, not confirmed",
-    meddpicc:{
-      eb:"Not yet identified",
-      champion:"Old boss (already gave a formal recommendation on the sister role) plus 2 fraternity brothers helping understand the team",
-      pain:"Cross-org silos slowing Cloud GTM execution, the same shape as the Cisco problem",
-      criteria:"Governance/playbook architecture for a technical-seller community, not commercial GTM",
-      process:"Apply by Aug 2, then await recruiter response",
-      competing:"Highest urgency this week: self-imposed but firm Sunday deadline",
-      note:"Process/governance framing, not people-management. Plays to influence strength."
-    }
-  },
-  {
-    company:"Google", role:"Strategic Programs Senior Manager, Cloud GTM",
-    techTag:"Cloud GTM Strategy",
-    jobUrl:"https://www.google.com/about/careers/applications/jobs/results/82721760591389382-strategic-programs-senior-manager/",
-    stageIndex:2, stageDate:"Applied, with a submitted recommendation", nextAction:"Awaiting recruiter response", nextDate:"Awaiting response",
-    isOutlier:false,
-    jobMatch:{mix:4, stakeholder:4, ambiguity:4, influence:4, tech:4},
-    career:{intrapreneurial:3, growth:3, croCto:4, breadth:3, bdMetrics:4},
-    accept:{
-      culture:{wlb:5, travel:4, location:4, hmRelationship:3, overallCulture:4},
-      compTier:5
-    },
-    hmNote:"the old boss's submitted recommendation is a strong champion signal, but he is not the hiring manager for this role and no hiring manager conversation has happened yet. HM Relationship stays at a neutral 3 of 5, and Stage Confidence stays at the true baseline, until a real hiring manager is engaged",
-    compCash:"$274K", compCashNote:"Cash: midpoint of posted base $186K to $270K plus 20% bonus (sits in the meeting band on its own)", compEquity:"~$125K/yr", compEquityNote:"Equity: Google L6 Program Manager published median stock grant (levels.fyi), closest public analog", compTotal:"~$399K", compStatus:"exceeding", compConfidence:"Estimated",
-    locationMode:"Hybrid, 3 days in office and 2 days remote (confirmed)", travelNote:"Est. ~10%, not confirmed",
-    meddpicc:{
-      eb:"Not yet identified",
-      champion:"Old boss, submitted a direct recommendation, second-strongest signal on the board",
-      pain:"Cloud GTM needs dedicated program leadership for emerging-tech initiatives",
-      criteria:"Program leadership plus business-transformation experience, more commercial-GTM-flavored than the Program Lead role",
-      process:"Applied, now awaiting recruiter screen",
-      competing:"Low this week, monitor only, no action required",
-      note:"Senior Manager title carries a faint people-management connotation worth clarifying if it advances."
-    }
-  },
-  {
-    company:"Amazon", role:"AI Strategic Business Development, Connect Applied AI",
-    techTag:"Agentic AI / Applied AI (CX)",
-    jobUrl:"https://www.amazon.jobs/en/jobs/10464109/ai-strategic-business-development-customer-experience-amazon-connect-applied-ai-solutions",
-    stageIndex:3, stageDate:"Wed Aug 5", nextAction:"Recruiter interview", nextDate:"Wed Aug 5",
-    isOutlier:false,
-    jobMatch:{mix:5, stakeholder:4, ambiguity:5, influence:5, tech:3},
-    career:{intrapreneurial:5, growth:5, croCto:4, breadth:3, bdMetrics:5},
-    accept:{
-      culture:{wlb:3, travel:4, location:3, hmRelationship:3, overallCulture:3},
-      compTier:4
-    },
-    hmNote:"one well known personal contact vouches for culture, flags it as team and manager dependent, but is not Andrew Levy, the identified hiring manager. HM Relationship stays at a neutral 3 of 5, and Stage Confidence stays at the true Recruiter Screening baseline",
-    compCash:"$191K", compCashNote:"Cash: midpoint of posted base $162.7K to $220.2K (salaried, no commission/OTE structure)", compEquity:"~$97K/yr", compEquityNote:"Equity: implied from the published Business Development Manager total-comp median ($288K) minus this posting's cash midpoint", compTotal:"~$288K", compStatus:"meeting", compConfidence:"Estimated",
-    locationMode:"In Office, 5 days per week on site (confirmed)", travelNote:"Est. ~15%, not confirmed",
-    meddpicc:{
-      eb:"Andrew Levy, Global Head of AI Specialists at AWS",
-      champion:"Personal contact, well known, vouches for culture, flags work/life balance as team-dependent",
-      pain:"Needs BD ownership for a still-undefined GTM motion around Applied AI in Connect",
-      criteria:"BD/GTM ownership, comfort with ambiguity, C-suite trust, bias to build not wait",
-      process:"Applied, recruiter interview Aug 5, then HM loop if it goes well",
-      competing:"Highest-stakes item this week, the interview is the main event",
-      note:"Tech fit is genuine but developing. Agentic AI experience is still being built, not established."
-    }
-  },
-  {
     company:"Meter", role:"Sales Engineering, Midwest",
     techTag:"Cloud Networking (NaaS)",
     jobUrl:"https://www.meter.com/open-roles?dept=sales&role=sales-engineering-midwest",
-    stageIndex:4, stageDate:"HM outreach received Aug 2", nextAction:"Schedule follow up call with SE hiring manager", nextDate:"Week of Aug 3",
-    isOutlier:true, outlierNote:"Tyler Crowley, the SE hiring manager, reached out unprompted, well beyond a routine recruiter-arranged hiring manager meeting, so this deal gets a 25 percent increase applied to the Hiring Manager Discussion baseline, the pre Second Stage direct hiring manager boost",
-    jobMatch:{mix:4, stakeholder:4, ambiguity:3, influence:4, tech:4},
-    career:{intrapreneurial:4, growth:5, croCto:4, breadth:4, bdMetrics:2},
+    stageIndex:4, stageDate:"Hiring manager call held with Tyler Crowley Aug 10, moving forward with a formal SE application", nextAction:"Prep for Tyler's technical assessment (a couple hours of research, CLI and security architecture depth), talk to 2 additional SEs and the recruiter to determine the right specific SE req, covering travel and total comp, then submit the formal application", nextDate:"Targeting by end of this week, Aug 14",
+    isOutlier:true, outlierNote:"Tyler Crowley, the SE hiring manager, reached out unprompted and then held a real, detailed call Aug 10 covering role substance, org structure, and his own evaluation rubric, well beyond a routine recruiter-arranged hiring manager meeting, so this deal gets a 25 percent increase applied to the Hiring Manager Discussion baseline, the pre Second Stage direct hiring manager boost",
+    jobMatch:{mix:5, stakeholder:5, ambiguity:4, influence:4, tech:4},
+    career:{intrapreneurial:5, growth:5, croCto:4, breadth:5, bdMetrics:3},
     accept:{
-      culture:{wlb:4, travel:3, location:5, hmRelationship:5, overallCulture:3},
+      culture:{wlb:3, travel:3, location:5, hmRelationship:5, overallCulture:5},
       compTier:4
     },
-    hmNote:"Tyler Crowley, the SE hiring manager, proactively reached out, a stronger unprompted signal than earlier expressed interest, tempered since travel and exact comp structure are still unconfirmed. That direct outreach is why HM Relationship sits at 5 of 5 here, and it is also exactly why the formal stage itself is genuinely Hiring Manager Discussion, not a boosted number on top of something earlier",
-    compCash:"$190K", compCashNote:"Cash: OTE midpoint $165K split 70/30 base/variable, variable at an assumed 150% attainment with accelerators. Hiring manager indicated in outreach that total comp meets Stephen's range, exact structure not yet itemized", compEquity:"~$37.5K/yr", compEquityNote:"Equity: illustrative only, about 0.015% grant as employee #200 in a Series C company near $1B valuation, vested over 4 years. Illiquid, could be worth far less or more at any actual exit", compTotal:"Est. $300K+, per HM's verbal range indication", compStatus:"meeting", compConfidence:"Estimated, verbal from HM outreach, not itemized",
-    locationMode:"Remote, field-based, assumed", travelNote:"Unknown. Earlier estimate assumed a field-heavy role, but scope for this specific opening has not been confirmed by the hiring manager yet",
+    hmNote:"Tyler Crowley, the SE hiring manager, proactively reached out and then held a real, substantive call Aug 10 covering role scope, org structure, and his own hiring rubric in detail, a stronger signal than earlier expressed interest, tempered since travel and exact comp structure are still unconfirmed and pending this week's additional SE and recruiter conversations. That direct engagement is why HM Relationship sits at 5 of 5 here, and it is also exactly why the formal stage itself is genuinely Hiring Manager Discussion, not a boosted number on top of something earlier",
+    minQuals:[],
+    qualSourceNote:"No formal minimum or preferred qualifications list exists for this req. Tyler laid out his own evaluation rubric directly on the Aug 10 call, technical acumen, business acumen, and sales acumen, technical acumen includes a real hands-on assessment. Qualification Fit below is scored against that rubric, not a scraped posting.",
+    preferredQuals:[
+      {item:"Technical acumen: CLI-level networking depth, security architecture credibility, holds up under a live technical assessment", fit:3},
+      {item:"Business acumen: translating technical detail into a business outcome, PRD and phased-plan style thinking", fit:5},
+      {item:"Sales acumen: backing up an AE in a technical deal cycle, outcome selling, earning credibility with skeptical senior technical buyers. Real strength here: listening for the actual customer need, reading people, addressing concerns directly, reading a room", fit:4}
+    ],
+    compCash:"$190K", compCashNote:"Cash: OTE midpoint $165K split 70/30 base/variable, confirmed on the Aug 10 call, variable at an assumed 150% attainment with accelerators. Hiring manager indicated total comp meets Stephen's range, but whether variable is calculated on team, geo, or the specific AE's numbers is still unclear, an open question for the recruiter and the other SEs this week", compEquity:"~$37.5K/yr", compEquityNote:"Equity: illustrative only, about 0.015% grant as employee #200 in a Series C company near $1B valuation, vested over 4 years. Illiquid, could be worth far less or more at any actual exit", compTotal:"Est. $300K+, per HM's verbal range indication", compStatus:"meeting", compConfidence:"Estimated, verbal from HM outreach, not itemized",
+    locationMode:"Remote, field-based, assumed", travelNote:"Unknown. Actively being confirmed this week through conversations with 2 additional SEs and the recruiter, alongside total comp, before the formal application goes in",
     meddpicc:{
       eb:"Tyler Crowley, the SE hiring manager, though formal decision authority for this specific req is not yet confirmed",
       champion:"Multiple ex-Meraki friends on the SE/sales side, plus Tyler Crowley himself, who reached out directly: Hello sir. Have some time to catch up next week? The SE team at Meter is heavily involved in product direction while staying close to customers and partners. It's a pretty unique position and hopefully a sweet spot you'd appreciate.",
-      pain:"Meter's enterprise SE bench needs Midwest coverage",
-      criteria:"Technical credibility plus enterprise customer-facing polish",
-      process:"Hiring manager reached out directly Aug 2, asking to catch up next week. A real conversation is underway, next formal step still to be scheduled",
+      pain:"Meter's enterprise SE bench needs Midwest coverage, and is currently running lean, close to a 1 to 1 SE to AE ratio against an ideal of 1 SE to 2 AEs",
+      criteria:"Tyler's own stated rubric: technical acumen (CLI and networking depth, security architecture credibility, a real hands-on assessment), business acumen, and sales acumen, backing up an AE in a technical deal cycle and earning credibility with skeptical senior technical buyers",
+      process:"Hiring manager call held Aug 10. Moving forward with a formal SE application, but Meter has more than one open SE req, so this week is about talking to 2 additional SEs and the recruiter to land on the right specific role and confirm travel and total comp before applying",
       competing:"Lower priority this week than the Aug 2 and Aug 5 deadlines",
-      note:"Tyler's own description, SE at Meter stays close to product direction, customers, and partners, with room to expand into technical and sales, and a possible path toward a future CTO or CRO track role within Meter. Career Trajectory score raised accordingly. Worth noting for fit generally: startups like Meter typically run flatter hierarchies than an enterprise such as HPE or Google, which in practice means more real room to move laterally or up once established, not just a fixed lane. That upside is still entirely dependent on how the actual conversation with Tyler develops, this is still an early conversation, not a promise."
+      note:"Aug 10 call confirmed a genuinely flat, high-trust org: direct co-founder and CTO access, weekly syncs with engineering leadership, approvals go straight to the person who owns them, titles matter less than getting things done. SEs write PRDs and phase 1/2 plans, real product-shaping work, not just technical support, a strong match to the PM background. Culture score raised accordingly. One real caution: the SE team is running lean, close to 1 SE per AE against Tyler's own ideal of 1 to 2, worth asking the other 2 SEs directly about actual workload and travel before assuming this is sustainable. Career Trajectory: SE community is informally covering some of what a product function would normally own, reinforcing the path back toward product or a future leadership track, but still no formal people management or budget ownership documented, consistent with the qualifying facts on file. This is all one detailed conversation, not a decision, still worth confirming against the 2 additional SEs and the recruiter this week."
     },
-    redirectNote:"Partner Technical Enablement role ruled out. Direct feedback from the Partner Leader was not a fit. Interest redirected to the Sales Engineering track above, where the hiring manager has since reached out directly."
+  },
+  {
+    company:"Amazon", role:"Senior Worldwide GTM Specialist, Amazon WorkSpaces (Agentic WorkSpaces)",
+    techTag:"Agentic AI / Cloud Workspaces",
+    jobUrl:"https://www.amazon.jobs/en/jobs/10405702/senior-worldwide-ww-gtm-specialist-amazon-workspaces-agentic-workspaces",
+    stageIndex:2, stageDate:"Formally applied Aug 10, after the recruiter referral", nextAction:"Await recruiter follow-up and screening", nextDate:"TBD, pending recruiter outreach",
+    isOutlier:false,
+    jobMatch:{mix:5, stakeholder:5, ambiguity:5, influence:5, tech:4},
+    career:{intrapreneurial:5, growth:5, croCto:4, breadth:5, bdMetrics:5},
+    accept:{
+      culture:{wlb:3, travel:3, location:3, hmRelationship:3, overallCulture:3},
+      compTier:4
+    },
+    hmNote:"the recruiter, not the hiring manager, suggested this role and relayed that the hiring manager is specifically looking for a product management background. A real, useful signal, but still one step removed from a direct hiring manager relationship, so HM Relationship holds at a neutral 3 of 5",
+    qualSourceNote:"Sourced directly from the live posting, checked Aug 9.",
+    minQuals:[
+      {req:"5+ years of technology sales selling enterprise software, networking, infrastructure, managed hosting, or cloud computing services", status:"clear", fit:5, note:"10+ years of sales experience at Cisco, a networking and infrastructure company"},
+      {req:"7+ years of business development, strategic partnerships, and/or program/product management experience with national and/or international scope", status:"clear", fit:5, note:"9+ years in GTM strategy and product management roles since 2017, national and international scope"},
+      {req:"5+ years experience selling enterprise datacenter and/or application technologies, preferably cloud based", status:"flag", fit:3, note:"Real sales experience, but it has run through GTM strategy and product management roles rather than a direct, quota carrying datacenter sales seat. Worth confirming this reads as equivalent to the recruiter before applying, not a clean automatic clear."}
+    ],
+    preferredQuals:[
+      {item:"Experience selling to Fortune 1000 or Global 2000 organizations", fit:4},
+      {item:"Experience with cloud computing and related fields (IT, software)", fit:4},
+      {item:"Complex agreement negotiation skills, business and financial acumen", fit:3},
+      {item:"Strong analytical skills, turning data analysis into strategic insight", fit:3},
+      {item:"Ability to develop business justifications for cloud technology roadmap adoption", fit:4},
+      {item:"MBA or equivalent relevant business experience", fit:5},
+      {item:"Experience conducting customer feedback and market research analytics", fit:3}
+    ],
+    compCash:"$191K", compCashNote:"Cash: midpoint of the posted Santa Clara band $162.7K to $220.2K. Austin and Seattle list a lower band, $147.9K to $220.1K, if location shifts there", compEquity:"~$97K/yr", compEquityNote:"Equity: implied the same way as the earlier Amazon Connect AI estimate, using the published Amazon L6 Business Development total-comp median as the closest public analog, not company confirmed for this specific req", compTotal:"~$288K", compStatus:"meeting", compConfidence:"Estimated",
+    locationMode:"Santa Clara, Austin, or Seattle listed, no remote option stated, worth confirming before applying", travelNote:"Not stated in the posting, estimated moderate for a worldwide strategy and evangelism role",
+    meddpicc:{
+      eb:"Not yet identified",
+      champion:"An AWS recruiter proactively suggested this role and noted the hiring manager wants a product management background",
+      pain:"AWS needs someone to define and scale the go to market motion for Amazon WorkSpaces as it repositions from traditional virtual desktops toward agentic, AI enhanced workspaces, building the strategy and proof points from a nascent base",
+      criteria:"Enterprise technology sales and business development or strategic partnership experience, comfort building go to market motions from scratch, credibility with CIOs and IT leaders",
+      process:"Applied Aug 10, after a follow up conversation with the recruiter. Awaiting next step",
+      competing:"This week's top priority alongside the Meter hiring manager conversations",
+      note:"Strongest tech and career fit of the three new roles this week, the agentic workspace positioning maps closely to the AI networking and ops framing this board already favors."
+    }
+  },
+  {
+    company:"Amazon", role:"Senior Go To Market Lead, NAMER Go To Market",
+    techTag:"Cross-functional GTM Strategy",
+    jobUrl:"https://www.amazon.jobs/en/jobs/10494655/senior-go-to-market-lead-namer-go-to-market",
+    stageIndex:2, stageDate:"Formally applied Aug 10, ahead of the original plan for next week", nextAction:"Await recruiter follow-up and screening", nextDate:"TBD, pending recruiter outreach",
+    isOutlier:false,
+    jobMatch:{mix:5, stakeholder:5, ambiguity:5, influence:5, tech:5},
+    career:{intrapreneurial:5, growth:5, croCto:4, breadth:5, bdMetrics:5},
+    accept:{
+      culture:{wlb:3, travel:3, location:3, hmRelationship:3, overallCulture:3},
+      compTier:4
+    },
+    hmNote:"no contact at all yet on this one, self sourced this week. HM Relationship holds at a neutral 3 of 5, same as any role with no engagement yet",
+    qualSourceNote:"Sourced directly from the live posting, checked Aug 9.",
+    minQuals:[
+      {req:"5+ years of Go-To-Market, Business Development, Sales, or Consulting experience", status:"clear", fit:5, note:"9+ years GTM and 10+ years sales experience"},
+      {req:"Experience developing strategies that influence leadership decisions at the organizational level", status:"clear", fit:5, note:"core strength, cross-functional leadership through influence"},
+      {req:"Experience managing programs across cross functional teams, building processes and coordinating release schedules", status:"clear", fit:5, note:"formalized governance and RACI structures"},
+      {req:"Experience working with Core Cloud Technology Services including Compute, Edge, Hybrid, Security, and/or Networking", status:"clear", fit:5, note:"20 years at Cisco, networking and security"}
+    ],
+    preferredQuals:[
+      {item:"Data & AI related technologies (AI/ML, GenAI, Analytics, Database, Storage)", fit:3},
+      {item:"Enterprise Application Modernization and Migration (Mainframe, Serverless, Containers, Cloud Ops)", fit:2}
+    ],
+    compCash:"$174K", compCashNote:"Cash: midpoint of the posted Chicago band $147.9K to $200.1K, used since Chicago is Stephen's home base and is explicitly listed. San Francisco and New York list a higher band, $162.7K to $220.2K, if location shifts there", compEquity:"~$114K/yr", compEquityNote:"Equity: implied the same way as the WorkSpaces estimate above, targeting the same total comp benchmark off a lower cash base since the Chicago band is lower", compTotal:"~$288K", compStatus:"meeting", compConfidence:"Estimated",
+    locationMode:"Multiple cities listed including Chicago, no remote option stated", travelNote:"Not stated in the posting, estimated moderate, cross-functional and executive facing",
+    meddpicc:{
+      eb:"Not yet identified",
+      champion:"None yet, self sourced this week while researching next roles to apply to",
+      pain:"AWS Global Sales needs a strategic campaign engine that unifies fragmented go to market motions across specialist sales, partners, and marketing for a divisional sales director",
+      criteria:"Go to market, business development, sales, or consulting background, experience influencing leadership at the organizational level, and direct experience with core cloud technology including security and networking specifically",
+      process:"Applied Aug 10, ahead of the original plan to apply next week. Awaiting next step",
+      competing:"Applied same day as WorkSpaces, alongside this week's Meter SE conversations",
+      note:"Chicago is one of the listed locations, no relocation required if pursued. Job description explicitly calls out security and networking experience, a tight match to the Cisco background."
+    }
+  },
+  {
+    company:"Google", role:"Strategy and Operation Lead, Solutions Industries and GTM Strategy",
+    techTag:"Cloud GTM Strategy & Ops",
+    jobUrl:"https://www.google.com/about/careers/applications/jobs/results/81049820017369798-strategy-and-operation-lead-solutions-industries-and-gtm-strategy",
+    stageIndex:0, stageDate:"Found this week while researching next roles", nextAction:"Not yet applied, exploring for application", nextDate:"Next week",
+    isOutlier:false,
+    jobMatch:{mix:4, stakeholder:5, ambiguity:4, influence:5, tech:4},
+    career:{intrapreneurial:3, growth:4, croCto:3, breadth:4, bdMetrics:3},
+    accept:{
+      culture:{wlb:5, travel:4, location:4, hmRelationship:3, overallCulture:4},
+      compTier:4
+    },
+    hmNote:"no contact at all yet on this one, self sourced this week. HM Relationship holds at a neutral 3 of 5, same as any role with no engagement yet",
+    qualSourceNote:"Sourced directly from the live posting, checked Aug 9.",
+    minQuals:[
+      {req:"Bachelor's degree or equivalent practical experience", status:"clear", fit:5, note:"BS Computer Science, RPI, plus an MBA"},
+      {req:"6 years of experience in a management consulting, sales operations, business strategy, or corporate advisory role", status:"clear", fit:5, note:"9+ years GTM strategy and business strategy roles since 2017"},
+      {req:"Experience in program management and data analysis", status:"clear", fit:4},
+      {req:"Experience working with executive-level clients or stakeholders", status:"clear", fit:5, note:"core strength"}
+    ],
+    preferredQuals:[
+      {item:"MBA or other relevant technical advanced degree", fit:5},
+      {item:"Experience executing complex strategic and operational initiatives", fit:4},
+      {item:"Knowledge of cloud technologies, products, trends, and market dynamics", fit:4},
+      {item:"Ability to handle simultaneous projects under deadline pressure", fit:4},
+      {item:"Excellent problem-solving and program management skills", fit:4}
+    ],
+    compCash:"$215K", compCashNote:"Cash: midpoint of the posted base $152K to $221K, plus the stated 15 percent bonus target", compEquity:"~$60K/yr", compEquityNote:"Equity: same rougher illustrative estimate used for the other Mid leveled Google card, no specific public grant data found for this exact level, treat as a placeholder pending real data", compTotal:"~$275K", compStatus:"meeting", compConfidence:"Estimated, and less confident than usual, see equity note",
+    locationMode:"Chicago, Atlanta, Austin, Boulder, Addison, or Miami, assumed hybrid consistent with the other Google roles on this board, not independently confirmed for this specific req", travelNote:"Not stated in the posting, estimated light to moderate, executive facing strategy and operations role",
+    meddpicc:{
+      eb:"Not yet identified. The posting is owned by the Solutions, Industries, and GTM Strategy team inside Google Cloud, working closely with VP and executive level stakeholders, no named contact yet",
+      champion:"None yet, self sourced this week while researching next roles to apply to",
+      pain:"Google Cloud's Solutions, Industries, and GTM Strategy org needs a bridge across product, engineering, industry solutions, and regional sales, translating data and field feedback into actionable GTM strategy",
+      criteria:"6 years of management consulting, sales operations, business strategy, or corporate advisory experience, plus program management and data analysis experience and direct executive stakeholder experience",
+      process:"Not yet applied, exploring for application next week",
+      competing:"Second priority behind the Amazon WorkSpaces application this week",
+      note:"Picked over the previously scored Partner Strategy and Operations Lead card: this req is genuinely inside Google Cloud rather than a Cloud titled Ads team role, and its posting window is open until at least Aug 13, still live, versus the other req's window that had already closed. Same comp band and same Mid level, but a better real fit and a live posting, see the Broader Pipeline for the demoted card and why."
+    }
   },
 ];
 
@@ -407,7 +514,10 @@ deals.forEach(d=>{
   d.cultureScore = Math.round(avg(d.accept.culture)*20);
   d.compScore = d.accept.compTier * 20;
   d.acceptScore = Math.round(0.5*d.cultureScore + 0.5*d.compScore);
-  d.overallFit = Math.round(pillarWeights.jobMatch*d.jobMatchScore + pillarWeights.career*d.careerScore + pillarWeights.accept*d.acceptScore);
+  const qf = scoreQualFit(d);
+  d.qualFitScore = qf.qualFitScore;
+  d.qualGateFlags = qf.qualGateFlags;
+  d.overallFit = Math.round(pillarWeights.jobMatch*d.jobMatchScore + pillarWeights.qualFit*d.qualFitScore + pillarWeights.career*d.careerScore + pillarWeights.accept*d.acceptScore);
 
   // Stage confidence is the baseline for the deal's actual formal stage. The one exception: if a real,
   // highlighted hiring manager is personally engaged before Second Stage (isOutlier:true), that stage's
@@ -417,26 +527,27 @@ deals.forEach(d=>{
   const base = (d.isOutlier && d.stageIndex < SECOND_STAGE_INDEX) ? stageBaseline[d.stageIndex] * HM_BOOST_MULTIPLIER : stageBaseline[d.stageIndex];
   d.stageConfidence = Math.max(0, Math.min(100, Math.round(base)));
   d.closeConfidence = Math.round(closeWeights.jobMatch*d.jobMatchScore + closeWeights.stage*d.stageConfidence + closeWeights.accept*d.acceptScore);
-  d.contrib30 = masterWeights.stage*d.stageConfidence + masterWeights.accept*d.acceptScore;
 });
 const bestBet = deals.reduce((a,b)=> (a.overallFit*a.closeConfidence > b.overallFit*b.closeConfidence ? a : b));
 const otherDeals = deals.filter(d=>d!==bestBet);
 
-// Master metric: dominated by the strongest deal instead of treating all 5 as
-// independent bets. The naive independence combination overstates confidence
-// when there are several weak, correlated, early-stage opportunities in flight.
-// The top-scoring deal counts in full; the other 4 are combined among themselves
-// and then only given half credit, since they are backup shots, not a true hedge.
-const sortedByContrib = [...deals].sort((a,b)=>b.contrib30-a.contrib30);
-const topDeal = sortedByContrib[0];
-const backupDeals = sortedByContrib.slice(1);
-const backupCombined = 1 - backupDeals.reduce((acc,d)=>acc*(1-d.contrib30/100), 1);
-const masterConfidence = Math.round(topDeal.contrib30 + (100 - topDeal.contrib30) * backupCombined * backupCredit);
+// Master metric, stage-cohort model. Only roles that have reached at least a Hiring Manager Discussion
+// count toward this number at all, everything earlier is excluded entirely, not discounted, excluded.
+// Applying is real progress worth tracking on its own card, but it does not move the needle on landing
+// something in 30 days until a hiring manager is actually engaged. Each counted role is combined using
+// its own Close Confidence via standard probability of landing at least one: 1 minus the product of
+// each one's chance of NOT closing. More roles at this stage raises the combined number on its own,
+// that is the "how many are in this stage" effect, no single deal has to dominate for it to show up.
+const HM_STAGE_INDEX = stageLabels.indexOf("Hiring Manager Discussion");
+const advancedDeals = deals.filter(d=>d.stageIndex >= HM_STAGE_INDEX);
+const excludedDeals = deals.filter(d=>d.stageIndex < HM_STAGE_INDEX);
+const advancedCombined = advancedDeals.length ? 1 - advancedDeals.reduce((acc,d)=>acc*(1-d.closeConfidence/100), 1) : 0;
+const masterConfidence = Math.round(advancedCombined*100);
 
 document.getElementById('masterMetric').innerHTML = `
   <div class="mtxt">🎯 Confidence of Landing Something in the Next 30 Days</div>
   <div class="mbig">${masterConfidence}%</div>
-  <div class="msub">Dominated by your strongest opportunity, ${topDeal.company}, rather than treating all 5 as independent bets. ${topDeal.company} counts in full, and the other 4 add a discounted amount of backup confidence on top.</div>
+  <div class="msub">Combines the ${advancedDeals.length} role${advancedDeals.length===1?'':'s'} past a hiring manager conversation (${advancedDeals.map(d=>d.company).join(' and ')}) using each one's own Close Confidence. ${excludedDeals.length} earlier-stage role${excludedDeals.length===1?'':'s'} (${excludedDeals.map(d=>d.company).join(', ')}) not yet counted, applied does not move this number until a hiring manager is actually engaged.</div>
 `;
 
 document.getElementById('heroTile').innerHTML = `
@@ -478,6 +589,8 @@ deals.forEach(d=>{
 
   const jmRows = Object.entries(d.jobMatch).map(([k,v])=>`<tr><td>${k}: ${v}/5</td><td>${v*20}</td></tr>`).join('');
   const crRows = Object.entries(d.career).map(([k,v])=>`<tr><td>${k}: ${v}/5</td><td>${v*20}</td></tr>`).join('');
+  const minQualRows = (d.minQuals||[]).map(q=>`<tr><td>${q.status==='flag' ? '🚩' : '✅'} ${q.req}${q.note ? ', ' + q.note : ''} (fit ${q.fit}/5, weight 1)</td><td>${q.fit*1}</td></tr>`).join('');
+  const prefQualRows = (d.preferredQuals||[]).map(q=>`<tr><td>${q.item} (fit ${q.fit}/5, weight 1.25)</td><td>${q.fit*1.25}</td></tr>`).join('');
   const cultureLabels = {wlb:"Work/Life Balance", travel:"Travel Load", location:"Location Mode", hmRelationship:"HM Relationship", overallCulture:"Overall Culture"};
   const acRows = Object.entries(d.accept.culture).map(([k,v])=>`<tr><td>${cultureLabels[k]}: ${v}/5</td><td>${v*20}</td></tr>`).join('')
     + `<tr class="total"><td>Culture avg (50% of Accept)</td><td>${d.cultureScore}</td></tr>`
@@ -494,11 +607,14 @@ deals.forEach(d=>{
     <div class="stepper">${stepsHtml}</div>
     <div class="stage-meta"><span>${d.stageDate}</span><span>Next: <b>${d.nextAction}: ${d.nextDate}</b></span></div>
     ${d.isOutlier ? `<div class="outlier-caveat">🔎 Outlier: ${d.outlierNote}</div>` : ''}
+    ${d.postingAlert ? `<div class="caveat">⚠️ ${d.postingAlert}</div>` : ''}
+    ${d.qualGateFlags && d.qualGateFlags.length ? `<div class="caveat">🚩 Investigate: ${d.qualGateFlags.map(q=>q.req + (q.note ? ', ' + q.note : '')).join(' | ')}</div>` : ''}
 
     <div class="pillars" style="margin-top:12px;">
-      <div class="pillar-row"><span class="name">Job Match Fit (40%)</span><div class="bar"><span style="width:${d.jobMatchScore}%"></span></div><span class="val">${d.jobMatchScore}</span></div>
-      <div class="pillar-row"><span class="name">Career Trajectory (35%)</span><div class="bar"><span style="width:${d.careerScore}%"></span></div><span class="val">${d.careerScore}</span></div>
-      <div class="pillar-row"><span class="name">Likelihood to Accept (25%)</span><div class="bar"><span style="width:${d.acceptScore}%"></span></div><span class="val">${d.acceptScore}</span></div>
+      <div class="pillar-row"><span class="name">Job Match Fit (35%)</span><div class="bar"><span style="width:${d.jobMatchScore}%"></span></div><span class="val">${d.jobMatchScore}</span></div>
+      <div class="pillar-row"><span class="name">Qualification Fit (30%)</span><div class="bar"><span style="width:${d.qualFitScore}%"></span></div><span class="val">${d.qualFitScore}</span></div>
+      <div class="pillar-row"><span class="name">Career Trajectory (25%)</span><div class="bar"><span style="width:${d.careerScore}%"></span></div><span class="val">${d.careerScore}</span></div>
+      <div class="pillar-row"><span class="name">Likelihood to Accept (10%)</span><div class="bar"><span style="width:${d.acceptScore}%"></span></div><span class="val">${d.acceptScore}</span></div>
     </div>
 
     <div class="score-row">
@@ -534,13 +650,18 @@ deals.forEach(d=>{
         <div class="row"><span class="k">C · Competing Priority</span>${d.meddpicc.competing}</div>
         <div class="row"><span class="k">Note</span>${d.meddpicc.note}</div>
 
-        <div class="k" style="margin-top:8px;">Job Match Fit, 40% weight</div>
+        <div class="k" style="margin-top:8px;">Job Match Fit, 35% weight</div>
         <table class="math-table">${jmRows}<tr class="total"><td>Score (avg × 20)</td><td>${d.jobMatchScore}</td></tr></table>
 
-        <div class="k" style="margin-top:8px;">Career Trajectory, 35% weight</div>
+        <div class="k" style="margin-top:8px;">Qualification Fit, 30% weight</div>
+        <div class="row" style="font-size:0.72rem; color:var(--sub); margin-top:4px;">${d.qualSourceNote}</div>
+        ${minQualRows ? `<table class="math-table"><tr><td><b>Minimum qualifications, weight 1 each, 🚩 = investigate flag</b></td><td></td></tr>${minQualRows}</table>` : ''}
+        ${prefQualRows ? `<table class="math-table"><tr><td><b>Preferred qualifications, weight 1.25 each</b></td><td></td></tr>${prefQualRows}<tr class="total"><td>Score (weighted avg of all qualifications × 20)</td><td>${d.qualFitScore}</td></tr></table>` : ''}
+
+        <div class="k" style="margin-top:8px;">Career Trajectory, 25% weight</div>
         <table class="math-table">${crRows}<tr class="total"><td>Score (avg × 20)</td><td>${d.careerScore}</td></tr></table>
 
-        <div class="k" style="margin-top:8px;">Likelihood to Accept, 25% weight (50% Culture / 50% Comp)</div>
+        <div class="k" style="margin-top:8px;">Likelihood to Accept, 10% weight (50% Culture / 50% Comp)</div>
         <table class="math-table">${acRows}<tr class="total"><td>Accept Score</td><td>${d.acceptScore}</td></tr></table>
         <div class="row" style="margin-top:8px;"><span class="k">Why the HM Relationship number is what it is</span>${d.hmNote}</div>
       </div>
@@ -563,9 +684,10 @@ const pillarChart = new Chart(document.getElementById('pillarChart'), {
   data:{
     labels: labels5,
     datasets:[
-      {type:'bar', label:'Job Match Fit (40%)', data:deals.map(d=>d.jobMatchScore), backgroundColor:'#1c3350', order:2},
-      {type:'bar', label:'Career Trajectory (35%)', data:deals.map(d=>d.careerScore), backgroundColor:'#3f6b8f', order:2},
-      {type:'bar', label:'Likelihood to Accept (25%)', data:deals.map(d=>d.acceptScore), backgroundColor:'#c8912f', order:2},
+      {type:'bar', label:'Job Match Fit (35%)', data:deals.map(d=>d.jobMatchScore), backgroundColor:'#1c3350', order:2},
+      {type:'bar', label:'Qualification Fit (30%)', data:deals.map(d=>d.qualFitScore), backgroundColor:'#7a5c99', order:2},
+      {type:'bar', label:'Career Trajectory (25%)', data:deals.map(d=>d.careerScore), backgroundColor:'#3f6b8f', order:2},
+      {type:'bar', label:'Likelihood to Accept (10%)', data:deals.map(d=>d.acceptScore), backgroundColor:'#c8912f', order:2},
       {type:'line', label:'Stage Confidence', data:deals.map(d=>d.stageConfidence), borderColor:'#a8492f', backgroundColor:'#a8492f', borderWidth:3, tension:0.3, pointRadius:5, pointBackgroundColor:'#a8492f', order:1, yAxisID:'y1'}
     ]
   },
@@ -607,26 +729,117 @@ document.getElementById('quadrantLinks').innerHTML = deals.map((d,i)=>`
 `).join('');
 
 // ===================== BROADER PIPELINE =====================
-const broader = [
-  {co:"ServiceNow", role:"GTM Operations Director, Partner/Embedded Solutions", tag:"Live conversation (McShane)", comp:"$$$"},
-  {co:"Cloudflare", role:"Sr. Director, Strategy and Planning", tag:"Warm contacts, not yet activated", comp:"$$"},
-  {co:"Datadog", role:"Chief of Staff, WW Technical Solutions", tag:"1 contact, not yet reached out", comp:"$$"},
-  {co:"HPE (Aruba)", role:"Presales Engineer, Channel, Networking", tag:"⚫ Ruled out, honey pot role, pulled after posting", comp:"N/A"},
-  {co:"HPE (Aruba)", role:"Cybersecurity Sales Specialist (NE/MA/CT)", tag:"2nd-degree HPE contacts", comp:"$$$"},
-  {co:"Vanta", role:"Head of GTM Operations and Strategy", tag:"No warm path", comp:"$$$"},
-  {co:"AHEAD", role:"Partner Account Manager (GCP) / IO Sales Specialist", tag:"2 contacts, not yet reached out", comp:"$"},
-  {co:"Numerator", role:"Enterprise Sales Director (FinServ)", tag:"1 contact, not yet reached out", comp:"$"},
-  {co:"Meter", role:"Partner Technical Enablement", tag:"⚫ Ruled out, not a fit per Partner Leader", comp:"N/A"},
-  {co:"Google", role:"Strategic Initiative Lead, Generative AI", tag:"No contact", comp:"$$$$"},
-  {co:"Google", role:"Head of Strategic Partnerships, SMB", tag:"No contact", comp:"$$$$"},
-  {co:"Salesforce", role:"Director, BD, Global Technology Partnerships", tag:"No contact", comp:"$$"},
-  {co:"Palo Alto Networks", role:"AIRS Solution Specialist (Prisma AIRS)", tag:"No contact", comp:"$$"},
-  {co:"Fortinet", role:"Head of OT Practice, United States", tag:"No contact", comp:"$$"},
+// Bucketed by engagement warmth, the dimension that actually drives what to do next with limited
+// time: active means keep the conversation going, warm means activate a contact you already have,
+// cold means decide whether a cold application is worth it, ruled out means leave it, kept for record.
+const broaderBuckets = [
+  {key:"active", label:"Active: a real conversation is already in motion"},
+  {key:"warm", label:"Warm: a real contact exists, not yet activated"},
+  {key:"cold", label:"Cold: no contact, a cold application if pursued"},
+  {key:"ruledout", label:"Ruled out or demoted: not being pursued right now"},
 ];
-document.getElementById('broaderTable').innerHTML = `
-  <tr><th>Company</th><th>Role</th><th>Status</th><th>Comp</th></tr>
-  ${broader.map(b=>`<tr><td>${b.co}</td><td>${b.role}</td><td><span class="tag-mini">${b.tag}</span></td><td>${b.comp}</td></tr>`).join('')}
+const broader = [
+  {co:"ServiceNow", role:"GTM Operations Director, Partner/Embedded Solutions", tag:"Live conversation (McShane)", comp:"$$$", bucket:"active"},
+  {co:"Cloudflare", role:"Sr. Director, Strategy and Planning", tag:"Warm contacts, not yet activated", comp:"$$", bucket:"warm"},
+  {co:"Datadog", role:"Chief of Staff, WW Technical Solutions", tag:"1 contact, not yet reached out", comp:"$$", bucket:"warm"},
+  {co:"HPE (Aruba)", role:"Cybersecurity Sales Specialist (NE/MA/CT)", tag:"2nd-degree HPE contacts", comp:"$$$", bucket:"warm"},
+  {co:"AHEAD", role:"Partner Account Manager (GCP) / IO Sales Specialist", tag:"2 contacts, not yet reached out", comp:"$", bucket:"warm"},
+  {co:"Numerator", role:"Enterprise Sales Director (FinServ)", tag:"1 contact, not yet reached out", comp:"$", bucket:"warm"},
+  {co:"Vanta", role:"Head of GTM Operations and Strategy", tag:"No warm path", comp:"$$$", bucket:"cold"},
+  {co:"Google", role:"Strategic Initiative Lead, Generative AI", tag:"No contact", comp:"$$$$", bucket:"cold"},
+  {co:"Google", role:"Head of Strategic Partnerships, SMB", tag:"No contact", comp:"$$$$", bucket:"cold"},
+  {co:"Salesforce", role:"Director, BD, Global Technology Partnerships", tag:"No contact", comp:"$$", bucket:"cold"},
+  {co:"Palo Alto Networks", role:"AIRS Solution Specialist (Prisma AIRS)", tag:"No contact", comp:"$$", bucket:"cold"},
+  {co:"Fortinet", role:"Head of OT Practice, United States", tag:"No contact", comp:"$$", bucket:"cold"},
+  {co:"HPE (Aruba)", role:"Presales Engineer, Channel, Networking", tag:"Ruled out, honey pot role, pulled after posting", comp:"N/A", bucket:"ruledout"},
+  {co:"Meter", role:"Partner Technical Enablement", tag:"Ruled out, not a fit per Partner Leader", comp:"N/A", bucket:"ruledout"},
+  {co:"Google", role:"Partner Strategy and Operations Lead, Google Cloud", tag:"Demoted from Top 5, the posting supports Google's Ads business despite the Cloud title, and its stated window already closed", comp:"$$", bucket:"ruledout"},
+];
+document.getElementById('broaderTable').innerHTML = broaderBuckets.map(bucket=>{
+  const rows = broader.filter(b=>b.bucket===bucket.key);
+  if(rows.length===0) return '';
+  return `
+    <div style="margin-top:14px;">
+      <div style="font-weight:700; color:var(--navy2); font-size:0.8rem; margin-bottom:4px;">${bucket.label} (${rows.length})</div>
+      <table class="broad-table">
+        <tr><th>Company</th><th>Role</th><th>Status</th><th>Comp</th></tr>
+        ${rows.map(b=>`<tr><td>${b.co}</td><td>${b.role}</td><td><span class="tag-mini">${b.tag}</span></td><td>${b.comp}</td></tr>`).join('')}
+      </table>
+    </div>
+  `;
+}).join('');
+
+// ===================== PREVIOUS WEEKS ARCHIVE =====================
+// Fit and Close Confidence here are frozen at the last computed value before the role closed out,
+// they do not recalculate, since the underlying deal is no longer in the live deals array.
+const archive = [
+  {co:"Google", role:"Strategic Programs Senior Manager, Cloud GTM", fit:78, close:29, outcome:"Applied with a submitted recommendation from a former manager. Did not advance to the recruiter stage, rejected by email."},
+  {co:"Google", role:"Strategic Program Lead, Engineering Excellence, Cloud", fit:85, close:28, outcome:"Role was pulled from the posting before an application could be submitted."},
+  {co:"Amazon", role:"AI Strategic Business Development, Connect Applied AI", fit:84, close:35, outcome:"Recruiter interview held, a positive conversation. The role turned out to be more customer facing than expected and wanted more direct contact center experience. Amazon declined to advance to a second round."},
+];
+document.getElementById('archiveTable').innerHTML = `
+  <tr><th>Company</th><th>Role</th><th>Overall Fit</th><th>Close Confidence</th><th>Final Outcome</th></tr>
+  ${archive.map(a=>`<tr><td>${a.co}</td><td>${a.role}</td><td>${a.fit}</td><td>${a.close}</td><td>${a.outcome}</td></tr>`).join('')}
 `;
+
+// ===================== WEEKLY ACTIVITY CALENDAR =====================
+// Reconstructed from Pipeline_State.md and Pivot_Tracks_Job_Board.md change logs for the two
+// historical weeks, and from direct updates for the current week. Where an activity's exact
+// day was not confirmed, it is grouped under "This week" rather than assigned a guessed date.
+const calendarWeeks = [
+  {
+    label:"Week of July 27 to August 2, 2026",
+    days:[
+      {day:"Monday", date:"Jul 27", items:["Monday Brief, full Stage 1, 2, and 3 discovery run across all 10 tracked companies", "Stage 2 re verification: Cloudflare (95) and ServiceNow (92) reconfirmed live, HPE Director Networking Strategy and Partnership confirmed permanently filled and cut from the active list, Datadog Chief of Staff resolved back to live under a new requisition, Vanta (70) reconfirmed"]},
+      {day:"Tuesday", date:"Jul 28", items:["Added a new Track A and Track B pivot lane alongside the core funnel", "Track A (Google, Amazon, Microsoft, Salesforce) scored 11 roles, Google Strategic Program Lead topped the list", "Track B (HPE, Fortinet, Palo Alto Networks, Meter) scored, HPE Sales Specialist Network for AI came out on top", "Cisco slash Splunk Director role closed, not selected", "Brief cadence changed from weekly to daily"]},
+      {day:"Wednesday", date:"Jul 29", items:["Daily check in. HPE Presales Engineer Channel scoping call held", "Google Strategic Programs Senior Manager referral follow up with the old boss completed, a day later than planned", "Found and scored Investor Ecosystem GTM Strategy Lead at Google", "Two Google Director level leads confirmed dead", "Referral slot plan finalized: slot one Senior Manager applied, slot two Investor Ecosystem recommended"]},
+      {day:"Thursday", date:"Jul 30", items:["Daily check in. Amazon Connect AI deadline flagged for tomorrow", "HPE Presales call outcome still not logged"]},
+      {day:"Friday", date:"Jul 31", items:["Amazon Connect AI Business Development application deadline day", "Scanned Stephen's own saved jobs list on Google Careers, found and scored 7 net new roles, Principal Lead Go To Market AI Tools recommended for application", "Ran a minimum qualifications validation pass against the real activity history, dropped 2 roles that looked good on paper but failed real qualifying bars", "Rebuilt the Strategic Program Lead resume and cover letter from scratch"]},
+      {day:"Saturday", date:"Aug 1", items:["Daily check in. HPE champion signal upgraded to 4 separate contacts vouching", "Amazon recruiter interview confirmed for Wednesday August 5", "Google Senior Manager reconfirmed applied with a submitted recommendation", "Google Program Lead application planned for Sunday August 2", "Meter Partner Technical Enablement ruled out, redirected to the Sales Engineering Midwest track", "Built the first version of this dashboard"]},
+      {day:"Sunday", date:"Aug 2", items:["Google Strategic Program Lead application was due today"]},
+    ]
+  },
+  {
+    label:"Week of August 3 to August 9, 2026",
+    days:[
+      {day:"Monday", date:"Aug 3", items:["Read the methodology reference and connected this dashboard's local repository", "Confirmed the Google Program Lead application from Sunday did not go in, still pending", "Reviewed HPE hiring manager call notes, learned the role is entering a formal second round loop: peer interview first, then Jay Killion, then SE Manager Tracy Holmquist and SE Josh, then a final round with Tom Wilburn if that clears", "Cleaned up the Broader Pipeline, removed a role no longer being pursued and marked another as a honey pot posting pulled after going live", "Recalibrated the scoring model several times: Close Confidence reweighted to 70 percent stage, 20 percent fit, 10 percent accept, the comp tier scale corrected, and the stage confidence table rebuilt with a proportional hiring manager engagement boost", "Received a direct message from Tyler Crowley at Meter about the SE role"]},
+      {day:"Tuesday", date:"Aug 4", items:[]},
+      {day:"Wednesday", date:"Aug 5", items:["Amazon recruiter interview held for the Connect Applied AI role, a positive conversation"]},
+      {day:"Thursday", date:"Aug 6", items:[]},
+      {day:"Friday", date:"Aug 7", items:[]},
+      {day:"Saturday", date:"Aug 8", items:[]},
+      {day:"Sunday", date:"Aug 9", items:["Tentative call window opens with Tyler Crowley at Meter, could land today or tomorrow"]},
+    ],
+    weekNotes:["This week, exact day not confirmed: Google Senior Manager rejected by email, did not advance to the recruiter stage", "This week, exact day not confirmed: Google Program Lead pulled from posting before an application could be submitted", "This week, exact day not confirmed: Amazon Connect AI, after the Wednesday recruiter interview, ultimately declined to advance to a second round, the role wanted more direct contact center experience than fit", "This week, exact day not confirmed: Amazon recruiter suggested the new Senior Worldwide GTM Specialist, Amazon WorkSpaces role, noting the hiring manager wants a product management background"]
+  },
+  {
+    label:"Week of August 10 to August 16, 2026 (current)",
+    days:[
+      {day:"Monday", date:"Aug 10", items:["Applied to Senior Worldwide GTM Specialist, Amazon WorkSpaces", "Applied to Senior Go To Market Lead, NAMER Go To Market, ahead of the original next-week plan", "Hiring manager call held with Tyler Crowley at Meter, moving forward with a formal SE application"]},
+      {day:"Tuesday", date:"Aug 11", items:[]},
+      {day:"Wednesday", date:"Aug 12", items:["Prep to apply: Google Strategy and Operation Lead, Solutions Industries and GTM Strategy, posting window open until at least Aug 13"]},
+      {day:"Thursday", date:"Aug 13", items:[]},
+      {day:"Friday", date:"Aug 14", items:[]},
+      {day:"Saturday", date:"Aug 15", items:[]},
+      {day:"Sunday", date:"Aug 16", items:[]},
+    ],
+    weekNotes:["This week, exact days not confirmed: 2 additional SE conversations at Meter plus a recruiter call, to determine the right specific SE req and confirm travel and total comp, targeting completion by end of week, Aug 14"]
+  },
+];
+
+document.getElementById('calendarWeeks').innerHTML = calendarWeeks.map(w=>`
+  <details class="broader cal-week">
+    <summary>${w.label}</summary>
+    <table class="broad-table">
+      <tr><th>Day</th><th>Activity</th></tr>
+      ${w.days.map(d=>{
+        const hasItems = d.items && d.items.length>0;
+        return `<tr${hasItems ? '' : ' class="no-activity"'}><td class="day">${d.day}, ${d.date}</td><td class="items">${hasItems ? `<ul>${d.items.map(i=>`<li>${i}</li>`).join('')}</ul>` : 'No dated activity logged'}</td></tr>`;
+      }).join('')}
+      ${w.weekNotes ? `<tr><td class="day">This week</td><td class="items"><ul>${w.weekNotes.map(n=>`<li>${n}</li>`).join('')}</ul></td></tr>` : ''}
+    </table>
+  </details>
+`).join('');
 </script>
 </body>
 </html>
